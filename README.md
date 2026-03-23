@@ -41,18 +41,20 @@ flowchart TB
 
 1. Clone into your code hive, for example `$CODE_ROOT/github.com/<your-username>/agent-rules` (see `general/folder-schema.md`).
 2. Optional: on Windows, a directory junction at `Z:\code\agent-rules` can point at this clone for a short path (recreate with `mklink /J Z:\code\agent-rules <path-to-this-repo>`).
-3. Copy `profiles/my-desktop.md` or `profiles/my-laptop.md` to a name you like, set **constants** (`CODE_ROOT`, `GITHUB_USER`, `ISSUES_REPO`, …).
+3. Copy `profiles/my-desktop.md` or `profiles/my-laptop.md` to a name you like, set **constants** (`CODE_ROOT`, `GITHUB_USER`, `ISSUES_REPO`, **`ENVIRONMENT`** …). Set **`ENVIRONMENT`** to `windows`, `mac`, or `linux` so the agent loads `general/windows.md`, `general/mac.md`, or `general/linux.md`.
 4. If your agent only accepts a single text blob, copy `RULES.md` into its rules or settings. Do not rely on one-line “read this file” indirection if your tool has been flaky.
 
 ## Read order in this repository
 
 When the agent can read files from the clone, use this order:
 
-1. `profiles/<your-profile>.md` — your machine constants (`CODE_ROOT`, `GITHUB_USER`, `ISSUES_REPO`, …).
+1. `profiles/<your-profile>.md` — machine constants, including **`ENVIRONMENT`** (`windows` \| `mac` \| `linux`).
 2. `general/global.md` — baseline expectations.
-3. `general/environment.md` — shell, tools, Git layout.
-4. `general/creator.md` — rules for projects you own.
-5. `general/folder-schema.md` — path patterns (uses `CODE_ROOT`).
+3. `general/environment.md` — cross-platform environment principles.
+4. **One** of `general/windows.md`, `general/mac.md`, or `general/linux.md` — chosen by `ENVIRONMENT`.
+5. `general/creator.md` — rules for projects you own.
+6. `general/folder-schema.md` — path patterns (uses `CODE_ROOT`).
+7. `general/documentation.md` — when authoring or publishing docs (optional; Diátaxis, Antora when relevant).
 
 Create a **machine-local** `MEMORIES.md` in this repository root (gitignored) for facts that rarely change. See **Machine-local memories** below.
 
@@ -67,6 +69,8 @@ Example line:
 ```text
 antora-supplemental is a GitHub org; clones live under Z:\code\github.com\antora-supplemental\
 ```
+
+(Replace with your own orgs; this fork uses concrete paths on the maintainer’s machine.)
 
 Adjust the path to match your `CODE_ROOT` and layout.
 

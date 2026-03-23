@@ -1,11 +1,10 @@
 # Device profile: laptop (template)
 
-Rename this file to match how you use it (for example `laptop.md`) and point your agent configuration at it. Update any path references in `RULES.md` after copying into an app.
-
-Constants use `NAME = value` with an inline comment after `#` where helpful.
+Rename this file to match how you use it (for example `laptop.md`) and point your agent configuration at it.
 
 ```text
-CODE_ROOT = C:\Users\you\src\code      # Root of your code hive on this machine
+CODE_ROOT = C:\Users\you\src\code
 GITHUB_USER = your-github-username
 ISSUES_REPO = C:\Users\you\src\code\github.com\your-github-username\.issues
+ENVIRONMENT = windows
 ```

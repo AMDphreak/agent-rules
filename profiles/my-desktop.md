@@ -1,11 +1,12 @@
-# Device profile: desktop (template)
+# Device profile: desktop (AMDphreak)
 
-Rename this file to match how you use it (for example `desktop.md` or `home-windows.md`) and point your agent configuration at it. Update any path references in `RULES.md` after copying into an app.
+Rename or duplicate this file if you use multiple profiles. Point your agent configuration at the file you use.
 
 Constants use `NAME = value` with an inline comment after `#` where helpful.
 
 ```text
-CODE_ROOT = Z:\code                    # Root of your code hive; adjust drive/path per machine
-GITHUB_USER = amdphreak                # Your GitHub username for FOLDER_SCHEMA examples
+CODE_ROOT = Z:\code
+GITHUB_USER = amdphreak
 ISSUES_REPO = Z:\code\github.com\AMDphreak\.issues
+ENVIRONMENT = windows
 ```

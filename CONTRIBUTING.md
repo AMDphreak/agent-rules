@@ -10,4 +10,4 @@ When `https://github.com/dev-centr/agent-rules` exists, open pull requests there
 
 ## Profiles
 
-Add new device templates under `profiles/` with clear constant names. Prefer one file per machine or role rather than many overlapping names.
+Add new device templates under `profiles/` with clear constant names. Prefer one file per machine or role rather than many overlapping names. Include **`ENVIRONMENT`** (`windows`, `mac`, or `linux`) so agents load the correct `general/<os>.md` file.
