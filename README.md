@@ -1,8 +1,8 @@
 # Agent rules
 
-Canonical **forkable agent rules** and **profiles** for coding assistants under Dev-Centr. Content is meant to be read by agents (from disk) or pasted into an app’s rules field.
+Forkable **agent rules** and **profiles** for coding assistants. Content is meant to be read by agents (from disk) or pasted into an app’s rules field.
 
-**Fork** this repository to your own org or user when you need a private or personalized copy (for example [`AMDphreak/agent-rules`](https://github.com/AMDphreak/agent-rules)). Upstream portable improvements with pull requests here.
+**Upstream:** contribute portable changes to [`dev-centr/agent-rules`](https://github.com/dev-centr/agent-rules). **This fork** ([`AMDphreak/agent-rules`](https://github.com/AMDphreak/agent-rules)) carries personal defaults on top of that story.
 
 **Dev-Centr product behavior** (when the app acts on behalf of the user) does **not** live here. It belongs in [dev-centr/devcentr-agent-rules](https://github.com/dev-centr/devcentr-agent-rules).
 
@@ -33,14 +33,14 @@ flowchart TB
   product -.->|used by Dev-Centr app| other
 ```
 
-- **agent-rules** (this repository): shared forkable end-user instructions and profiles.
+- **agent-rules** (this repo family): forkable end-user instructions and profiles.
 - **devcentr-agent-rules**: rules for when the Dev-Centr app acts on behalf of the user (separate repository).
 - **templates**: project templates; README there links to forkable agent rules, not to personal copies.
 
 ## Quick start
 
 1. Clone into your code hive, for example `$CODE_ROOT/github.com/<your-username>/agent-rules` (see `general/folder-schema.md`).
-2. Optional: on Windows, a directory junction can point at this clone for a short path (for example `mklink /J Z:\code\agent-rules <path-to-this-repo>`).
+2. Optional: on Windows, a directory junction at `Z:\code\agent-rules` can point at this clone for a short path (recreate with `mklink /J Z:\code\agent-rules <path-to-this-repo>`).
 3. Copy `profiles/my-desktop.md` or `profiles/my-laptop.md` to a name you like, set **constants** (`CODE_ROOT`, `GITHUB_USER`, `ISSUES_REPO`, …).
 4. If your agent only accepts a single text blob, copy `RULES.md` into its rules or settings. Do not rely on one-line “read this file” indirection if your tool has been flaky.
 
@@ -65,7 +65,7 @@ For **Dev-Centr automation** acting on behalf of the user, the product should lo
 Example line:
 
 ```text
-antora-supplemental is a GitHub org; clones live under $CODE_ROOT/github.com/antora-supplemental/
+antora-supplemental is a GitHub org; clones live under Z:\code\github.com\antora-supplemental\
 ```
 
 Adjust the path to match your `CODE_ROOT` and layout.
@@ -76,4 +76,4 @@ Project templates (workspaces, payloads, template docs) live in [dev-centr/templ
 
 ## License
 
-Add a license file if you want this repository to be reusable by others.
+Add a license file if you want this fork to be reusable by others.
