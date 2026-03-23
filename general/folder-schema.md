@@ -22,7 +22,7 @@ Where:
 - **`<repo>`** is the repository name
 - **`<org>`** is the organization name that owns the repository (same as owner for organizations)
 
-### Org membership checks
+## Org membership checks
 
 GitHub:
 
