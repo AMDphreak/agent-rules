@@ -1,0 +1,3 @@
+# Machine-local only: stable facts about this workstation (paths, org quirks).
+# See README.md for an example entry.
+MEMORIES.md
