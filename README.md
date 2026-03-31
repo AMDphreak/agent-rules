@@ -52,9 +52,13 @@ flowchart TB
 | `GITHUB_USER` | No | Your username for path examples and org layouts. |
 | `ISSUES_REPO` | No | Path to your `.issues` repo if you use that workflow. |
 
-## Pointing the agent at this repository
+## Consolidated Rules (Fallback)
 
-This repository uses a **1-step assembly architecture** optimized for local AI harnesses (e.g., Cursor, Windsurf, VSCode, Antigravity) that have filesystem access.
+If your AI agent has difficulty reading multiple files from disk or refuses to follow the "1-step assembly" instructions in `RULES.md`, you can use the **[CONSOLIDATED_RULES.md](file:///Z:/code/github.com/amdphreak/agent-rules/CONSOLIDATED_RULES.md)** file instead.
+
+This file blends the modular rules and profile constants into a single document, suitable for direct pasting into a system prompt or custom instructions field.
+
+## Pointing the agent at this repository
 
 When you paste `RULES.md` into your agent and define `$AGENT_RULES_PATH`, you are commanding the AI to perform a batched semantic read of all foundational modules simultaneously using its native tools (e.g., `view_file`, `read_file`). This prevents multi-turn ping-pong delays and avoids the common truncation issues associated with traditional CLI `cat` output.
 

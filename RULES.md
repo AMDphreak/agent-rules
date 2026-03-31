@@ -1,56 +1,96 @@
-# Agent rules (entrypoint)
+# Agent Rules
+<!-- purpose: Consolidated one-stop-shop for all agent rules and machine constants. -->
 
-> **Dev Configuration (Fill these in before passing to AI)**:
-> `CODE_ROOT= # insert the path to your code hive`
-> `AGENT_RULES_PATH=$CODE_ROOT/github.com/amdphreak/agent-rules`
+## 1. Machine Constants
 
-You are operating under this rules set.
+- **CODE_ROOT** = `Z:\code`
+- **GITHUB_USER** = `amdphreak`
+- **ISSUES_REPO** = `Z:\code\github.com\AMDphreak\.issues`
+- **ENVIRONMENT** = `windows`
 
-## Context Assembly (CRITICAL FIRST STEP)
+---
 
-You must read all foundational rules in a single step using your native file reading tools. Do not read them sequentially. All paths below are strictly relative to `$AGENT_RULES_PATH`. Resolve that absolute path based on the variables above.
+## 2. Core Obligations & Protocols
 
-Read these files **simultaneously in parallel tool calls** to assemble your full context:
+- **Plain Language:** Write explanations in plain language for easy reading.
+- **Gitignore as Allow-list:** Treat `.gitignore` as an allow-list with additional exclusions. Exclude everything by default (`*`) and update the allow-list when adding specific files.
+- **Python Venvs:** Always use a `venv` for Python projects. Prefer `uv` over `pip`; install `uv` in scripts if missing.
+- **Build Failures:** When builds fail, prefer fixing outdated project code over downgrading dependencies. If a failure is due to a missing icon, stop the rebuild loop; use a placeholder from a free icon library or ask the user.
+- **Task Tracking:** When working from a to-do list in a file, use checkmark emojis to mark off completed items.
+- **Changelogs:** Update changelogs according to the style already detected in the repository.
 
-- `profiles/<infer-profile-name>.md` (contains machine constants, including `ENVIRONMENT`)
-- `general/global.md`
-- `general/environment.md`
-- `general/<windows|mac|linux>.md` (infer OS from host or profile)
-- `general/creator.md`
-- `general/folder-schema.md`
-- `general/documentation.md` (only if the task involves authoring or publishing project documentation)
+---
 
-*(Fallback)*: If you lack native file reading tools, use a terminal to read them all in one command (e.g. `cat`), but beware of output truncation. If the host cannot read the filesystem, follow the **obligations** below as your only source.
+## 3. Environment & Operating System (Windows/PowerShell)
 
-## Machine-local memory
+- **OS/Shell:** Assume **Windows 10/11** and **PowerShell 7** unless explicitly told otherwise.
+- **Path Refresh:** When installing a tool that adds itself to PATH, refresh the session using:
 
-- Read `MEMORIES.md` at the **repository root** when you need durable facts about this machine. That file is **gitignored**; **create** it if you need to record stable local facts and it does not exist yet.
 
-## Constants (interpret from the active profile)
+  ```powershell
+  $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+  ```
 
-- `CODE_ROOT` — root directory for all clones.
-- `GITHUB_USER` — GitHub username for path examples.
-- `ISSUES_REPO` — path to the `.issues` repository when that workflow is used.
-- `ENVIRONMENT` — selects which OS layer file to apply: `windows` → `general/windows.md`, `mac` → `general/mac.md`, `linux` → `general/linux.md`.
+- **Node Tooling:** Use **`pnpm`**. Use `pnpm dlx` for one-off tools and `pnpm exec` for project binaries.
+- **Git CLIs:** Prefer **`gh`** (GitHub) and **`glab`** (GitLab) for operations not covered by native MCP tools.
+- **MCP Usage:** Always prefer MCPs for repository interaction. Fall back to CLI tools (`gh`, `glab`) only if MCP is unavailable or unsupported.
 
-## Obligations (always)
+---
 
-- Write explanations in plain language.
-- Treat `.gitignore` as an allow-list unless the project says otherwise.
-- For Python, use a `venv`; prefer `uv` over `pip`; install `uv` in scripts if missing.
-- When builds fail, prefer fixing outdated project code over downgrading dependencies. If failure is due to a missing icon, stop the rebuild loop; use a placeholder or ask the user.
-- For dependencies whose APIs are stale in memory, use Context7 MCP when available; if not, direct the user to <https://context7.com/>
+## 4. Repository & Folder Schema
 
-## Dev-Centr product scope
+Organize repositories using the following pattern (relative to `CODE_ROOT`):
 
-These rules are for **end-user / project** agents. **Dev-Centr application automation** (acting on behalf of the user) must load `https://github.com/dev-centr/devcentr-agent-rules` instead of this repository—do not conflate the two.
+- **Owned/Member Repos:** `$CODE_ROOT/<host>/<owner>/<repo>`
+  - *Example:* `Z:\code\github.com\amdphreak\my-project`
+- **Forks:** `$CODE_ROOT/<host>/<owner>/.forks/<repo>`
+  - *Example:* `Z:\code\github.com\amdphreak\.forks\obs-studio`
+- **External Clones:** `$CODE_ROOT/<host>/.clones/<owner>/<repo>`
+  - *Example:* `Z:\code\github.com\.clones\obsproject\obs-studio`
 
-## Memory file format (when writing `MEMORIES.md`)
+**Git Hosters:** `<host>` is usually `github.com` or `gitlab.com`.
 
-Stable facts only; one example line shape:
+---
 
-```text
-<org-or-label> is a GitHub org; clones live under $CODE_ROOT/github.com/<org-or-label>/
-```
+## 5. Creator & Ownership Rules
 
-Use the profile’s `CODE_ROOT` when expanding paths.
+Applied to projects owned by `amdphreak` or associated organizations:
+
+- **Repo Transfers:** Use `gh api` for repo transfers between owned orgs.
+- **Issue Tracking:** Store issue reports in the path defined by `ISSUES_REPO` (`Z:\code\github.com\AMDphreak\.issues`) according to its instructions.
+- **Configuration Formats:** Endorse and use **SDL** for project configuration/data. If SDL is inappropriate, use **JSON5** (prefer `.json5` over `.json`).
+- **Changelog Integration:**
+  - Every project must have a changelog (in docs or repo base).
+  - Include a "Changelog" section in the README linking to it.
+  - Maintain a timeline in the changelog with links to detailed files in a `changelog-details/` folder (named `date - title`).
+
+---
+
+## 6. Documentation Standards
+
+- **Diátaxis Model:** When designing docs, use the Diátaxis structure (Tutorials, How-to, Explanation, Reference).
+- **Formating:** Prefer **AsciiDoc** for READMEs and documentation unless Markdown is strictly required by a host (e.g., npm).
+- **Antora:** If the project uses Antora, follow the `dev-centr` publishing guidance.
+
+---
+
+## 7. AI Operations & Memory
+
+### AI Formatting Avoidance
+
+- **AsciiDoc Checklists:** Must include asterisk: `* [ ]`.
+- **Bold Headings:** Always insert a blank line between **bold text** used as a heading and the following block.
+- **Lists:** Add list continuations (`+`) before continued blocks in list items.
+- **Images:** Use `image::` blocks for inline images in AsciiDoc.
+
+### Memory & Local Facts
+
+- **MEMORIES.md:** Maintain a `MEMORIES.md` file at the repository root for durable facts about the machine/environment.
+- Initialize if missing. Record findings with a usage counter (starts at 1, increment on use).
+- **Context7:** For stale APIs, use Context7 MCP (<https://context7.com/>). If unavailable, alert the user and follow the **Outdated Code Protocol**.
+
+### Outdated Code Protocol (Fallback)
+
+- Create `AI-LOCAL-LIBRARY-DOCS.local.json5` and `docs/_local-library-docs/`.
+- Prefer repo-local indexed docs/source over web search for high API accuracy.
+- For Dlang and similar, prefer cloning source repositories to resolve API truth.
