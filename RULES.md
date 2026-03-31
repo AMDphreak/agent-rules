@@ -1,4 +1,5 @@
 # Agent Rules
+
 <!-- purpose: Consolidated one-stop-shop for all agent rules and machine constants. -->
 
 ## 1. Machine Constants
@@ -25,7 +26,6 @@
 
 - **OS/Shell:** Assume **Windows 10/11** and **PowerShell 7** unless explicitly told otherwise.
 - **Path Refresh:** When installing a tool that adds itself to PATH, refresh the session using:
-
 
   ```powershell
   $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
@@ -85,7 +85,7 @@ Applied to projects owned by `amdphreak` or associated organizations:
 
 ### Memory & Local Facts
 
-- **MEMORIES.md:** Maintain a `MEMORIES.md` file at the repository root for durable facts about the machine/environment.
+- **MEMORIES.md:** Maintain a `MEMORIES.md` file at the CODE_ROOT for durable facts about the machine/environment.
 - Initialize if missing. Record findings with a usage counter (starts at 1, increment on use).
 - **Context7:** For stale APIs, use Context7 MCP (<https://context7.com/>). If unavailable, alert the user and follow the **Outdated Code Protocol**.
 
