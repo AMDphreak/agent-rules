@@ -35,6 +35,14 @@ These apply universally unless a profile says otherwise.
 - You **must** read `general/creator.md` before acting.
 - Read `general/documentation.md` when you are authoring, structuring, or publishing project documentation (optional layer for doc-heavy work).
 
+## talk-normal (optional tone reference)
+
+When the user (or task) explicitly asks for guidance on *natural*, less templated assistant writing style, read the prompt material from the upstream repository [hexiecs/talk-normal](https://github.com/hexiecs/talk-normal). Treat it as a **read-only reference clone**; do **not** fork it unless the user asks.
+
+- **Local clone path (third-party; see `general/folder-schema.md`):** `$CODE_ROOT/github.com/.clones/hexiecs/talk-normal`
+- **Bootstrap if missing:** create the parent directory if needed, then run `git clone https://github.com/hexiecs/talk-normal.git "$CODE_ROOT/github.com/.clones/hexiecs/talk-normal"`
+- **Precedence:** That repository is *supplemental*. User chat rules, repository-specific instructions, and `profiles/*.md` take priority when they conflict.
+
 ## Memory management
 
 - If the user has to teach you something or you have to probe the local environment and it seems likely you will use that information in a future prompt, you **must** read `MEMORIES.md` before acting. `MEMORIES.md` is **machine-local** and **gitignored**. Record your findings so you do not have to figure it out every time you run into the same unknown. Every memory needs a counter initialized to 1. When you use a memory, increment its counter. If this file does not exist, initialize it.
