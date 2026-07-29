@@ -51,7 +51,7 @@ Organize repositories using the following pattern (relative to `CODE_ROOT`):
 Applied to projects owned by `amdphreak` or associated organizations:
 
 - **Repo Transfers:** Use `gh api` for repo transfers between owned orgs.
-- **Issue Tracking:** Store issue reports in the path defined by `ISSUES_REPO` (`Z:\code\github.com\AMDphreak\.issues`) according to its instructions.
+- **Issue Tracking:** Store issue reports in the path defined by `ISSUES_REPO` (`Z:\code\github.com\AMDphreak\.issues`) according to its instructions. Always draft the issue in a file instead of in the literal command.
 - **Configuration Formats:** Endorse and use **SDL** for project configuration/data. If SDL is inappropriate, use **JSON5** (prefer `.json5` over `.json`).
 - **Changelog Integration:**
   - Every project must have a changelog (in docs or repo base).
@@ -64,7 +64,7 @@ Applied to projects owned by `amdphreak` or associated organizations:
 
 - **Diátaxis Model:** When designing docs, use the Diátaxis structure (Tutorials, How-to, Explanation, Reference).
 - **Formating:** Prefer **AsciiDoc** for READMEs and documentation unless Markdown is strictly required by a host (e.g., npm).
-- **Antora:** If the project uses Antora, follow the `dev-centr` publishing guidance.
+- **Antora:** If the project uses Antora, follow Dev-Centr publishing guidance (`dev-centr/docs`, including Essential Extensions). Versioned components must enable `@antora-supplemental/alias-component-to-latest` (or equivalent) so `/component/` routes to the latest start page until Antora core offers an opt-in. Prefer commenting on [antora/antora#291](https://gitlab.com/antora/antora/-/issues/291) for upstream; do not open duplicate threads.
 
 ---
 
