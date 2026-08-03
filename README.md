@@ -70,25 +70,27 @@ The agent will automatically pull:
 4. `general/<windows|mac|linux>.md`
 5. `general/creator.md`
 6. `general/folder-schema.md`
-(and `general/documentation.md` selectively).
+(and `general/documentation.md` / `general/app-architecture.md` selectively).
 
-Create a **machine-local** `MEMORIES.md` in this repository root (gitignored) for facts that rarely change. See **Machine-local memories** below.
+Create **`$CODE_ROOT/MEMORIES.md`** for workstation facts (see **Machine-local memories** below). Do not commit per-repo `MEMORIES.md`.
 
 For **Dev-Centr automation** acting on behalf of the user, the product should load rules from [devcentr-agent-rules](https://github.com/dev-centr/devcentr-agent-rules), not from this forkable repo.
 
 ## Machine-local memories
 
-`MEMORIES.md` in the **repository root** is **gitignored**. Use it for durable facts about **this machine**, not for project tickets.
+Canonical file: **`$CODE_ROOT/MEMORIES.md`** (e.g. `Z:\code\MEMORIES.md`). Workstation-only; never commit.
+
+Committed template / format: link:MEMORIES.example.md[`MEMORIES.example.md`].
+
+`MEMORIES.md` inside **this** `agent-rules` clone remains gitignored for backwards compatibility, but prefer `$CODE_ROOT/MEMORIES.md` so every harness finds one sys-wide file.
+
+Do **not** commit per-repo `MEMORIES.md`. Project facts → `AGENTS.md` + docs.
 
 Example line:
 
 ```text
-antora-supplemental is a GitHub org; clones live under Z:\code\github.com\antora-supplemental\
+Flutter SDK: `C:\flutter-sdk\flutter\bin` — refresh PATH if `flutter` missing (counter: 1)
 ```
-
-(Replace with your own orgs; this fork uses concrete paths on the maintainer’s machine.)
-
-Adjust the path to match your `CODE_ROOT` and layout.
 
 ## Relation to Dev-Centr templates
 
