@@ -37,11 +37,11 @@ flowchart TB
 
 ## Quick start
 
-1. Clone into your code hive, for example `$CODE_ROOT/github.com/<your-username>/agent-rules` (see `general/folder-schema.md`).
-2. Optional: on Windows, a directory junction at `Z:\code\agent-rules` can point at this clone for a short path (recreate with `mklink /J Z:\code\agent-rules <path-to-this-repo>`).
-3. Copy `profiles/my-desktop.md` or `profiles/my-laptop.md` to a name you like, set **constants** (`CODE_ROOT`, `GITHUB_USER`, `ISSUES_REPO`, **`ENVIRONMENT`** …). Set **`ENVIRONMENT`** to `windows`, `mac`, or `linux` so the agent loads `general/windows.md`, `general/mac.md`, or `general/linux.md`.
-4. **`RULES.md` is written for the agent**. It serves as a preamble that commands the AI to assemble its context in one step.
-5. In your AI agent's system prompt or custom instructions field, paste the contents of **`RULES.md`**. Before saving, fill in the **Dev Configuration** section at the top of the pasted block with your actual `CODE_ROOT` and `AGENT_RULES_PATH`.
+1. Clone into your code hive, for example `$CODE_ROOT/github.com/<your-username>/.forks/agent-rules` (see `general/folder-schema.md`).
+2. **Supported compose/watch:** install [`dev-centr/rules-manager`](https://github.com/dev-centr/rules-manager). Set `rules_repo_path` to this clone. Hostname → `laptop` / `desktop` lives in rules-manager config. Output: `$CODE_ROOT/agent-rules.composed.md` (never commit).
+3. **Temporary path hack only:** a junction such as `…/AMDphreak/agent-rules` → `.forks/agent-rules` may exist for short paths; do not require it once rules-manager is configured.
+4. Use `profiles/laptop.md` / `profiles/desktop.md` (constants) and `profiles/*.overlay.md` (machine-only bullets). Templates `my-laptop.md` / `my-desktop.md` remain for forks that rename profiles.
+5. **`RULES.md` is written for the agent**. Paste **`RULES.md`** or the composed file into Cursor User Rules / AGENTS.md after filling constants (or let rules-manager fill from the active profile).
 
 ### Profile constants (your `profiles/*.md`)
 
