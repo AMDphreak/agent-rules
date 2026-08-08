@@ -36,12 +36,14 @@
 - Transfers: `gh api`.
 - Issues: draft in `ISSUES_REPO` per its instructions; never only in the command.
 - Config: SDL preferred; else JSON5 (`.json5` over `.json`).
-- Changelog: every project; README links to it; timeline + `changelog-details/date - title`.
+- Changelog: every project; functional changes; README links to it; index + `changelog-details/date - title`; backfill from git if missing; wire into docs; alert user if cross-org secrets are required.
 
 ## Docs
 - Structure: Diátaxis (tutorials, how-to, explanation, reference).
-- Format: AsciiDoc unless host requires Markdown (e.g. npm).
-- Antora: follow `dev-centr/docs` essentials — Lunr on every site; versioned components need `@antora-supplemental/alias-component-to-latest` (or equiv) until core opt-in; prefer comments on antora/antora#291 over duplicate issues.
+- Format: AsciiDoc by default; retain Markdown on upstream forks; keep/add Markdown when a package registry only parses Markdown. See `general/readme-layout.md`.
+- Antora: Valentus + org branding; follow `dev-centr/docs` essentials — Lunr on every site; AI search via `antora-supplemental/antora-search-chat` (alert user and wait if the org/extensions cannot be found); versioned components need `@antora-supplemental/alias-component-to-latest` (or equiv) until core opt-in; prefer comments on antora/antora#291 over duplicate issues.
+- **One Antora site per org** with a hub: wire `docs/` into the hub playbook; never publish a second Antora site on project GitHub Pages. See `general/antora-docs-sites.md`.
+- **Public README layout:** org **Docs \| Org** badge → hub URL; CI badge when CI exists; centered Best-README header; TOC if >3 sections. Hand-edit per repo.
 - Titles: follow site `STYLE.adoc` / `AGENTS.md` (not MEMORIES). Short defaults — first-party news omits org; action essays pass implied [On] and drop surplus *the*; prefer `X as Y` / *when* / disproof / questions over rigid `X is Y`; attach floating modifiers to an object; Antora topics = concept names. Philosophy: `Titles as orientation` (HCI Nerdz + ryanjohnson.dev). Cursor rules = `.cursor/rules/*.mdc` dir; this file stays the paste preamble.
 - Project facts for agents: `AGENTS.md` + README/docs. Do not commit per-repo `MEMORIES.md`.
 - **App shipping architecture:** when scaffolding/building/shipping apps (GUI, CLI, TUI, libs, games, services), read `general/app-architecture.md` and adhere to local Software Product Essentials at `$CODE_ROOT/github.com/dev-centr/general-knowledge/docs/modules/ROOT/pages/explanation/architecture/` (hub: `software-product-essentials.adoc`). About/build info, debug dump, Windows auto-update, installers, and CI release pipelines are core—not polish.
