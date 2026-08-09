@@ -25,6 +25,14 @@ Read this file when you **author, structure, or publish** project documentation 
 
 ## Titles for news, blogs, and essays
 
+**Stance before title shape:**
+
+- **News** faces **outward** — what entered the shared record (shipped, added, partnered).
+- **Blog / essay** faces **inward** — ideas, ideals, philosophy, craft tutorials, working theories; often thinking in public.
+- **Changelog** is neither — shipping minutiae stay in Antora / `/changelog`.
+
+Essay: https://ryanjohnson.dev/blog/posts/blog-as-inner-thought/ · house STYLE: HCI-Nerdz `STYLE.adoc`.
+
 When authoring or reviewing titles:
 
 1. **First-party news** — omit the org; notification line (`Feature added…`) unless another actor did it.
