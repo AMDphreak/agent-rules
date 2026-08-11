@@ -1,0 +1,14 @@
+---
+description: Ship math rendering on every docs site (Antora stem + KaTeX; Markdown remark-math)
+alwaysApply: true
+---
+
+# Docs math plumbing
+
+When creating or editing documentation sites (Antora, Astro/Markdown blogs, AsciiDoc marketing sites):
+
+1. Enable math rendering **even if the current pages have no formulas**.
+2. Antora: set `asciidoc.attributes.stem: latexmath` in the playbook; load KaTeX via Valentus `site-math.js` / org `supplemental-ui` (`site-math.css` + `site-math.js`).
+3. Write formulas as `stem:[…]` or `[stem]` blocks — not raw `$Hash(Bytes_{…})$` left as prose.
+4. Markdown/Astro: `remark-math` + `rehype-katex` (or equivalent) and KaTeX CSS in the layout.
+5. Prefer encoding math from source discussions (Gemini/Cursor exports) with real stem/math markup when promoting them to curated docs or essays.

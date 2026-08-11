@@ -18,7 +18,7 @@ Examples of what belongs here:
 
 - Tool install locations / PATH gaps (`ffmpeg` missing, Flutter SDK path)
 - Screenshot folders, hardware quirks on this PC
-- “This machine’s CODE_ROOT is …”
+- “This machine’s `%code%` / `CODE_ROOT` is …” (short path preferred)
 
 Examples of what does **not** belong here (put in the repo):
 
