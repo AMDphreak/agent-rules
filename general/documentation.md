@@ -43,3 +43,12 @@ When authoring or reviewing titles:
 6. One idea per news item; big idea first; human names before CLI tokens when possible.
 
 See each site’s `STYLE.adoc`. Philosophy essays: **Titles as orientation** (HCI Nerdz + ryanjohnson.dev). Cursor `.cursor/rules/*.mdc` is a **directory**, not one file. Project agent facts → `AGENTS.md`. Workstation facts → `$CODE_ROOT/MEMORIES.md` only (never per-repo `MEMORIES.md`).
+
+## Body copy: news vs blog (Cursor skill — not always-on)
+
+Title stance above is thin and stays in rules. **Full news/blog body-copy directives** live in the Cursor skill `writing-news-vs-blog` (on-demand; do not paste into User Rules).
+
+- **Canonical (this repo):** `skills/writing-news-vs-blog/` (`SKILL.md`, `news.md`, `blog.md`, `published-sources.md`)
+- **Cursor install:** `~/.cursor/skills/writing-news-vs-blog` (junction to the path above on this machine)
+- **When:** drafting or revising news posts, ship notes, blog/essays, or when the user asks for news vs blog voice / lede / attribution / anti-slop article prose
+- Read `SKILL.md`, pick mode, then follow `news.md` or `blog.md`. Do not load this skill for ordinary chat replies.

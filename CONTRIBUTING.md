@@ -11,3 +11,7 @@ When `https://github.com/dev-centr/agent-rules` exists, open pull requests there
 ## Profiles
 
 Add new device templates under `profiles/` with clear constant names. Prefer one file per machine or role rather than many overlapping names. Include **`ENVIRONMENT`** (`windows`, `mac`, or `linux`) so agents load the correct `general/<os>.md` file.
+
+## Suggestions
+
+Optional playbooks live under `suggestions/` (not assembled by `MAIN.md` unless you wire them). Keep them debranded; put personal instances in an "Example instance" section you can strip when contributing upstream. Matching Cursor rules use `alwaysApply: false` under `.cursor/rules/`.

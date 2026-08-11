@@ -5,6 +5,8 @@ Used when hostname maps to `laptop` in rules-manager config.
 ```text
 CODE_ROOT = C:\code
 GITHUB_USER = amdphreak
-ISSUES_REPO = C:\code\github.com\AMDphreak\.issues
+ISSUES_REPO = C:\code\github.com/AMDphreak/.issues
 ENVIRONMENT = windows
 ```
+
+On this host, User env `%code%` / `CODE_ROOT` must be `C:\code` (short path; do not use `%USERPROFILE%\code`).

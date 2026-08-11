@@ -47,6 +47,10 @@ When the user (or task) explicitly asks for guidance on *natural*, less template
 - **Bootstrap if missing:** create the parent directory if needed, then run `git clone https://github.com/hexiecs/talk-normal.git "$CODE_ROOT/github.com/.clones/hexiecs/talk-normal"`
 - **Precedence:** That repository is *supplemental*. User chat rules, repository-specific instructions, and `profiles/*.md` take priority when they conflict.
 
+## writing-news-vs-blog (optional article skill)
+
+When drafting or revising **news** or **blog/essay** body copy (not ordinary chat), use the Cursor skill `writing-news-vs-blog` — see `skills/writing-news-vs-blog/` in this repo. Keep it out of always-on User Rules; titles stance stays in `general/documentation.md`.
+
 ## Memory management
 
 - If the user teaches you something about **this machine/environment**, or you probe the local environment and will need it again, you **must** read and update **`$CODE_ROOT/MEMORIES.md`** (create if missing; see `MEMORIES.example.md`). It is machine-local and never committed. Every memory needs a counter starting at 1; increment on reuse.

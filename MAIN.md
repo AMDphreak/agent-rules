@@ -1,4 +1,4 @@
-# Main Rules
+﻿# Main Rules
 
 <!--
 This is a modular context assembly file. For a consolidated, all-in-one ruleset, use **[RULES.md](./RULES.md)** instead.
@@ -32,14 +32,14 @@ Read these files **simultaneously in parallel tool calls** to assemble your full
 ## Machine-local memory
 
 - Read **`$CODE_ROOT/MEMORIES.md`** for durable facts about **this workstation** (paths, PATH gaps, hardware). Create it if missing (see `MEMORIES.example.md`). Never commit it.
-- Do **not** use per-repo `MEMORIES.md` for project knowledge — put that in `AGENTS.md` + docs/README.
+- Do **not** use per-repo `MEMORIES.md` for project knowledge â€” put that in `AGENTS.md` + docs/README.
 
 ## Constants (interpret from the active profile)
 
-- `CODE_ROOT` — root directory for all clones.
-- `GITHUB_USER` — GitHub username for path examples.
-- `ISSUES_REPO` — path to the `.issues` repository when that workflow is used.
-- `ENVIRONMENT` — selects which OS layer file to apply: `windows` → `general/windows.md`, `mac` → `general/mac.md`, `linux` → `general/linux.md`.
+- `CODE_ROOT` â€” root directory for all clones. On Windows, resolve from User env `%code%` / `$env:code` (also `CODE_ROOT`); profile values are the compose-time fallback. Prefer short roots (`C:\code`, `Z:\code`) over `%USERPROFILE%\code`.
+- `GITHUB_USER` â€” GitHub username for path examples.
+- `ISSUES_REPO` â€” path to the `.issues` repository when that workflow is used (`$CODE_ROOT/github.com/<user>/.issues`).
+- `ENVIRONMENT` â€” selects which OS layer file to apply: `windows` â†’ `general/windows.md`, `mac` â†’ `general/mac.md`, `linux` â†’ `general/linux.md`.
 
 ## Obligations (always)
 
@@ -53,8 +53,15 @@ Read these files **simultaneously in parallel tool calls** to assemble your full
 
 ## Dev-Centr product scope
 
-These rules are for **end-user / project** agents. **Dev-Centr application automation** (acting on behalf of the user) must load `https://github.com/dev-centr/devcentr-agent-rules` instead of this repository—do not conflate the two.
+These rules are for **end-user / project** agents. **Dev-Centr application automation** (acting on behalf of the user) must load `https://github.com/dev-centr/devcentr-agent-rules` instead of this repositoryâ€”do not conflate the two.
 
+## Optional suggestions
+
+Files under `suggestions/` are **not** auto-loaded by this assembly. Open them when the task matches (for example `suggestions/secrets-distribution-cli-mcp.md` when distributing API keys). Optional Cursor rule: `.cursor/rules/secrets-distribution-workflow.mdc` (`alwaysApply: false`).
+
+## Optional Cursor skills (this repo)
+
+Skills under `skills/` are **not** part of MAIN context assembly. Install or junction into `~/.cursor/skills/<name>/` so Cursor can discover them on demand. Example: `skills/writing-news-vs-blog` for news vs blog body copy (see `general/documentation.md`).
 ## Memory file format (when writing `$CODE_ROOT/MEMORIES.md`)
 
 Stable workstation facts only; see `MEMORIES.example.md`. One line shape:

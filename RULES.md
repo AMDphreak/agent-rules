@@ -54,4 +54,5 @@
 - MEMORIES: **only** `$CODE_ROOT/MEMORIES.md` (sys-wide workstation facts). Create if missing. Usage counter from 1; increment on use. Gitignored / never committed. Read it when environment facts matter. Format example: `$CODE_ROOT/github.com/AMDphreak/agent-rules/MEMORIES.example.md`.
 - Stale APIs: Context7 MCP (https://context7.com/); else Outdated Code Protocol.
 - talk-normal (only if asked): prompts under `$CODE_ROOT/github.com/.clones/hexiecs/talk-normal`; clone if missing; do not fork unless asked; user/project rules win on conflict.
+- writing-news-vs-blog (news/blog body copy only): Cursor skill — canonical `skills/writing-news-vs-blog/`; do **not** paste full directives into always-on User Rules; titles stance stays under Docs above.
 - Outdated Code Protocol: `AI-LOCAL-LIBRARY-DOCS.local.json5` + `docs/_local-library-docs/`; prefer local indexed docs/source; for Dlang prefer cloning source.
