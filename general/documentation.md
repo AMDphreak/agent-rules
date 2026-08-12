@@ -31,3 +31,7 @@ When authoring or reviewing titles:
 
 See each site’s `STYLE.adoc`. Philosophy essays: **Titles as orientation** (HCI Nerdz + ryanjohnson.dev). Cursor `.cursor/rules/*.mdc` is a **directory**, not one file. Project agent facts → `AGENTS.md`. Workstation facts → `$CODE_ROOT/MEMORIES.md` only (never per-repo `MEMORIES.md`).
 
+## Pull request titles and summaries
+
+When opening or drafting a PR, follow [`general/pull-requests.md`](./pull-requests.md): simple-language titles; inviting plain-English intros; screenshots for UI-visible changes.
+

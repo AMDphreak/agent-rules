@@ -23,6 +23,7 @@ Read these files **simultaneously in parallel tool calls** to assemble your full
 - `general/creator.md`
 - `general/folder-schema.md`
 - `general/documentation.md` (only if the task involves authoring or publishing project documentation)
+- `general/pull-requests.md` (only if the task involves opening or drafting a pull request)
 - `general/app-architecture.md` (only if the task involves scaffolding, building, shipping, packaging, or maintaining an application, CLI, TUI, publishable library, game client, or service)
 
 *(Fallback)*: If you lack native file reading tools, use a terminal to read them all in one command (e.g. `cat`), but beware of output truncation. If the host cannot read the filesystem, follow the **obligations** below as your only source.
