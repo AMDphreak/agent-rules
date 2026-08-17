@@ -1,12 +1,12 @@
 ---
-name: write-skill
+name: write-a-skill
 description: >-
   Use when authoring or editing a Cursor skill, SKILL.md, skill frontmatter,
   or a skill YAML `description` field; when adding a skill under
   agent-rules/skills or ~/.cursor/skills; when create-skill would fill
   description with a lay description of the skill; when writing trigger
   words, invocation phrases, or when a skill should be called; when the
-  user asks how to write skills.
+  user asks how to write a skill or write-a-skill.
 ---
 
 # Write a Cursor skill
@@ -15,7 +15,7 @@ Cursor’s built-in `create-skill` is for **layout** (folders, 500-line cap, pro
 
 Do **not** copy skills into `~/.cursor/skills-cursor/` (Cursor-managed built-ins).
 
-Team copy (same skill): `dev-centr/agent-rules/skills/write-skill/`. Prefer that tree on org work; junction `~/.cursor/skills/write-skill` from the clone you actually edit.
+Team copy (same skill): `dev-centr/agent-rules/skills/write-a-skill/`. Prefer that tree on org work; junction `~/.cursor/skills/write-a-skill` from the clone you actually edit.
 
 ## The description is a matcher, not a blurb
 

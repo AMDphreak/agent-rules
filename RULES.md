@@ -54,4 +54,4 @@
 - MEMORIES: **only** `$CODE_ROOT/MEMORIES.md` (sys-wide workstation facts). Create if missing. Usage counter from 1; increment on use. Gitignored / never committed. Read it when environment facts matter. Format example: `$CODE_ROOT/github.com/AMDphreak/agent-rules/MEMORIES.example.md`.
 - Stale APIs: Context7 MCP (https://context7.com/); else skill `outdated-code-protocol`.
 - Commits / PRs: skills `git-commit` and `draft-pr` (load when the user asks to commit or open a PR).
-- Cursor skills: junction `dev-centr/agent-rules/skills/<name>` into `~/.cursor/skills/<name>/`. Personal packs: `skills/CATALOG.md` in this fork. Do **not** paste skill bodies here. Skill `write-skill`: description field = trigger words, not a lay blurb.
+- Cursor skills: junction `dev-centr/agent-rules/skills/<name>` into `~/.cursor/skills/<name>/`. Personal packs: `skills/CATALOG.md` in this fork. Do **not** paste skill bodies here. Skill `write-a-skill`: description field = trigger words, not a lay blurb.
