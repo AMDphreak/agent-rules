@@ -58,4 +58,5 @@
 - Stale APIs: Context7 MCP (https://context7.com/); else Outdated Code Protocol.
 - talk-normal (only if asked): prompts under `$CODE_ROOT/github.com/.clones/hexiecs/talk-normal`; clone if missing; do not fork unless asked; user/project rules win on conflict.
 - writing-news-vs-blog (news/blog body copy only): Cursor skill — canonical `skills/writing-news-vs-blog/`; do **not** paste full directives into always-on User Rules; titles stance stays under Docs above.
+- write-skill (authoring `SKILL.md` / skill `description`): Cursor skill — canonical `skills/write-skill/`; description field = trigger words, not a lay blurb. Do not paste the body into always-on User Rules.
 - Outdated Code Protocol: `AI-LOCAL-LIBRARY-DOCS.local.json5` + `docs/_local-library-docs/`; prefer local indexed docs/source; for Dlang prefer cloning source.

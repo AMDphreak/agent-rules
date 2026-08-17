@@ -53,6 +53,10 @@ Read these files **simultaneously in parallel tool calls** to assemble your full
 
 These rules are for **end-user / project** agents. **Dev-Centr application automation** (acting on behalf of the user) must load `https://github.com/dev-centr/devcentr-agent-rules` instead of this repository—do not conflate the two.
 
+## Optional Cursor skills (this repo)
+
+Files under `skills/` are **not** auto-loaded by MAIN assembly. Junction into `~/.cursor/skills/<name>/` for Cursor discovery. Skill `write-skill` (`skills/write-skill/`) when authoring skills — description = trigger words, not a lay blurb.
+
 ## Memory file format (when writing `$CODE_ROOT/MEMORIES.md`)
 
 Stable workstation facts only; see `MEMORIES.example.md`. One line shape:
