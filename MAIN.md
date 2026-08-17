@@ -4,9 +4,8 @@
 This is a modular context assembly file. For a consolidated, all-in-one ruleset, use **[RULES.md](./RULES.md)** instead.
 -->
 
-> **Dev Configuration (Fill these in before passing to AI)**:
-> `CODE_ROOT= # insert the path to your code hive`
-> `AGENT_RULES_PATH=$CODE_ROOT/github.com/amdphreak/agent-rules`
+> **Dev Configuration**: resolve `CODE_ROOT` from this host (`%code%` / Cursor `~/.cursor/rules` / `profiles/<id>.md`). Do not bake a drive letter into Cursor User Rules (those sync).
+> `AGENT_RULES_PATH=$CODE_ROOT/github.com/AMDphreak/agent-rules`
 
 You are operating under this rules set.
 
