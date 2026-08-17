@@ -8,7 +8,7 @@ Do not apply these rules to third-party open-source contributions unless explici
 ## Organization and GitHub
 
 - Use `gh api` to perform repo transfers when you own the orgs.
-- When creating issue reports, store them in the `.issues` repository path defined by `ISSUES_REPO` in your active `profiles/*.md` file, according to that repository's instructions.
+- Issue reports: skill **`issue-reports`** — durable draft, never only in chat. Follow `ISSUES_REPO` instructions.
 
 ## Architecture and data
 
@@ -16,7 +16,5 @@ Do not apply these rules to third-party open-source contributions unless explici
 
 ## Changelogs
 
-- When you create a project, integrate a changelog into its docs. If it lacks docs, put the changelog in the repo base.
-- Put a link to the changelog in the README in a Changelog section.
-- The changelog should contain a timeline with quick summaries and links to very detailed changelogs for each date in a `changelog-details` subfolder that names files by `date - title`.
-- If you add docs afterward, update its changelog structure.
+- Every **owned** project records **functional** changes. Match an existing changelog’s style when one exists.
+- How to create, backfill, and wire: Cursor skill **`owned-changelog`**.
