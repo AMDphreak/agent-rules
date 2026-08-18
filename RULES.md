@@ -38,7 +38,7 @@
 
 ## Creator (owned orgs)
 - Transfers: `gh api`.
-- **Agent rules:** canonical template is `dev-centr/agent-rules`. Each owned org gets `{org}/agent-rules` (wrapper repo: `template/` submodule → dev-centr + thin org `AGENTS.md`). `{org}/.github/AGENT-RULES.md` is a pointer only — do not submodule rules into `.github`. Shared changes: PR `dev-centr/agent-rules`; org-only: commit wrapper `AGENTS.md`. Script: `dev-centr/agent-rules/scripts/setup-org-agent-rules-wrapper.ps1`.
+- **Agent rules:** canonical template is `dev-centr/agent-rules`. Each owned org gets `{org}/agent-rules` (pointer README + thin org `AGENTS.md` — **no submodule**; clone/fetch `dev-centr/agent-rules`). `{org}/.github/AGENT-RULES.md` is a pointer only — do not submodule rules into `.github`. Shared changes: PR `dev-centr/agent-rules`; org-only: commit wrapper `AGENTS.md`. Script: `dev-centr/agent-rules/scripts/setup-org-agent-rules-wrapper.ps1`.
 - Config: SDL preferred; else JSON5 (`.json5` over `.json`).
 - Changelog: every owned project, functional changes — skill `owned-changelog`.
 - Issues: never only in chat — skill `issue-reports`.
