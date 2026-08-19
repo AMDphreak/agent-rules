@@ -8,7 +8,7 @@ Do not apply these rules to third-party open-source contributions unless explici
 ## Organization and GitHub
 
 - Use `gh api` to perform repo transfers when you own the orgs.
-- Issue reports: skill **`issue-reports`** — durable draft, never only in chat. Follow `ISSUES_REPO` instructions.
+- **Issues:** file for bugs, blockers, and external coordination — not routine owned-repo work. When filing: skill **`issue-reports`**; never chat-only. Follow `ISSUES_REPO` when set.
 
 ## Architecture and data
 
