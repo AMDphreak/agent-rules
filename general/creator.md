@@ -8,7 +8,7 @@ Do not apply these rules to third-party open-source contributions unless explici
 ## Organization and GitHub
 
 - Use `gh api` to perform repo transfers when you own the orgs.
-- **Issues:** file for bugs, blockers, and external coordination — not routine owned-repo work. When filing: skill **`issue-reports`**; never chat-only. Follow `ISSUES_REPO` when set.
+- **Issues:** file for bugs, blockers, and external coordination — not routine owned-repo work. When filing: skills **`issue-reports`** + **`issues-repo-record`** (when `ISSUES_REPO` set; always push); never chat-only.
 
 ## Architecture and data
 

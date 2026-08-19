@@ -44,14 +44,14 @@
 - **Agent rules:** canonical template is `dev-centr/agent-rules`. Each owned org this hive initializes gets `{org}/agent-rules` (pointer README + thin org `AGENTS.md` — **no submodule**; clone/fetch `dev-centr/agent-rules`). House workflow, not a requirement for every GitHub org. `{org}/.github/AGENT-RULES.md` is a pointer only — do not submodule rules into `.github`. Shared changes: PR `dev-centr/agent-rules`; org-only: commit wrapper `AGENTS.md`. Script: `dev-centr/agent-rules/scripts/setup-org-agent-rules-wrapper.ps1`.
 - Config: SDL preferred; else JSON5 (`.json5` over `.json`).
 - Changelog: every owned project, functional changes — skill `owned-changelog`.
-- Issues: file for bugs, blockers, and external coordination — not routine owned-repo work (skill `owned-changelog`). When filing: skill `issue-reports`; never chat-only.
+- Issues: file for bugs, blockers, and external coordination — not routine owned-repo work (skill `owned-changelog`). When filing: skills `issue-reports` + `issues-repo-record` (when `ISSUES_REPO` set; always push); never chat-only.
 
 ## Docs
 - Structure: Diátaxis (tutorials, how-to, explanation, reference).
 - Format: AsciiDoc by default; retain Markdown on upstream forks; keep/add Markdown when a package registry only parses Markdown.
 - Titles: follow site `STYLE.adoc` / `AGENTS.md` (not MEMORIES). **News = outward**; **blog = inward**. First-party news omits org; action essays pass implied [On]; prefer `X as Y` / *when* / disproof / questions; attach floating modifiers to an object; Antora topics = concept names. Philosophy: `Titles as orientation` (HCI Nerdz + ryanjohnson.dev). Cursor rules = `.cursor/rules/*.mdc` dir; this file stays the paste preamble.
 - Project facts for agents: `AGENTS.md` + README/docs. Do not commit per-repo `MEMORIES.md`.
-- On demand (do not inline): team skills in `dev-centr/agent-rules/skills/` — `antora-org-site`, `public-readme`, `ship-app`, `draft-pr`, `writing-news`, `writing-blog`, and `skills/CATALOG.md`. Personal-only: `talk-normal`.
+- On demand (do not inline): team skills in `dev-centr/agent-rules/skills/` — `antora-org-site`, `public-readme`, `ship-app`, `draft-pr`, `issue-reports`, `issues-repo-record`, `writing-news`, `writing-blog`, and `skills/CATALOG.md`. Personal-only: `talk-normal`.
 
 ## AI ops
 - AsciiDoc: checklists `* [ ]`; blank line after **bold** headings; list continuations `+`; images `image::`.
