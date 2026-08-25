@@ -21,6 +21,7 @@
 - Changelogs: match the repo’s existing style; owned-project layout is skill `owned-changelog`.
 - **This-machine paths:** read `%USERPROFILE%\.cursor\rules\` (local `.mdc`; not Settings User Rules). Cursor Settings User Rules sync across machines — never put hive or drive letters there.
 - Never write secret values into git, docs, `MEMORIES.md`, or `.env.example` (name-only registry: skill `env-names-registry`).
+- **Web fonts:** prefer self-hosting (Fontsource / local `woff2` + preload); do not `@import` Google Fonts or wait on a CDN for first paint. Detail: `general/self-host-fonts.md` (skill `self-host-fonts`).
 
 ## Environment
 - OS/Shell: Windows 10/11 + PowerShell 7 unless told otherwise.
