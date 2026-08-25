@@ -41,7 +41,8 @@ flowchart TB
 2. **Supported compose/watch:** install [`dev-centr/rules-manager`](https://github.com/dev-centr/rules-manager). Set `rules_repo_path` to this clone. Hostname → `laptop` / `desktop` lives in rules-manager config. Output: `$CODE_ROOT/agent-rules.composed.md` (never commit).
 3. **Temporary path hack only:** a junction such as `…/AMDphreak/agent-rules` → `.forks/agent-rules` may exist for short paths; do not require it once rules-manager is configured.
 4. Use `profiles/laptop.md` / `profiles/desktop.md` (constants) and `profiles/*.overlay.md` (machine-only bullets). Templates `my-laptop.md` / `my-desktop.md` remain for forks that rename profiles.
-5. **`RULES.md` is written for the agent**. Paste **`RULES.md`** or the composed file into Cursor User Rules / AGENTS.md after filling constants (or let rules-manager fill from the active profile).
+5. **`RULES.md` is written for the agent** and must stay **portable** (no hive/drive letters). Paste **only** `RULES.md` into Cursor **User Rules**. Cursor Settings User Rules **sync across machines**.
+6. **This-machine overlay** (hive path, `CODE_ROOT`, overlay bullets): put in `%USERPROFILE%\.cursor\rules\machine.mdc` (`alwaysApply: true`). That home-dir file is local and does not sync. Do **not** paste `agent-rules.composed.md` or `profiles/*.overlay.md` into User Rules. rules-manager may still fill constants into the local composed file for disk consumers.
 
 ### Profile constants (your `profiles/*.md`)
 
@@ -54,9 +55,7 @@ flowchart TB
 
 ## Consolidated Rules (Fallback)
 
-If your AI agent has difficulty reading multiple files from disk or refuses to follow the "1-step assembly" instructions in `RULES.md`, you can use the **[CONSOLIDATED_RULES.md](file:///Z:/code/github.com/amdphreak/agent-rules/CONSOLIDATED_RULES.md)** file instead.
-
-This file blends the modular rules and profile constants into a single document, suitable for direct pasting into a system prompt or custom instructions field.
+If your AI agent has difficulty reading multiple files from disk or refuses to follow the "1-step assembly" instructions in `MAIN.md`, paste **`RULES.md`** (portable) into User Rules. Machine constants stay in `%USERPROFILE%\.cursor\rules\`, not in a `file://` hive path.
 
 ## Pointing the agent at this repository
 
@@ -70,21 +69,27 @@ The agent will automatically pull:
 4. `general/<windows|mac|linux>.md`
 5. `general/creator.md`
 6. `general/folder-schema.md`
-(and `general/documentation.md` / `general/app-architecture.md` selectively).
+(and `general/documentation.md` when the task is docs). Heavy playbooks are Cursor skills — team `dev-centr/agent-rules/skills/CATALOG.md`.
 
-Create **`$CODE_ROOT/MEMORIES.md`** for workstation facts (see **Machine-local memories** below). Do not commit per-repo `MEMORIES.md`.
+Create **`$CODE_ROOT/machine.md`** (preferred) or legacy **`$CODE_ROOT/MEMORIES.md`** for workstation facts (see **Machine-local memories** below). Do not commit per-repo copies.
 
 For **Dev-Centr automation** acting on behalf of the user, the product should load rules from [devcentr-agent-rules](https://github.com/dev-centr/devcentr-agent-rules), not from this forkable repo.
 
+## Changelog
+
+- Index: [`CHANGELOG.adoc`](CHANGELOG.adoc)
+- Details: [`changelog-details/`](changelog-details/)
+- Upstream (schema rename `RULES.md` → `user.md`, `MEMORIES` → `machine.md`, harness layer): https://docs.devcentr.org/agent-rules/changelog.html
+
 ## Machine-local memories
 
-Canonical file: **`$CODE_ROOT/MEMORIES.md`** (e.g. `Z:\code\MEMORIES.md`). Workstation-only; never commit.
+Prefer **`$CODE_ROOT/machine.md`** (upstream harness-neutral name). Legacy **`$CODE_ROOT/MEMORIES.md`** still works and stays gitignored. Harness wiring: **`$CODE_ROOT/harness.md`**. Cursor adapter: `%USERPROFILE%\.cursor\rules\machine.mdc` (does not sync).
 
-Committed template / format: link:MEMORIES.example.md[`MEMORIES.example.md`].
+The concrete `$CODE_ROOT` for this PC lives in Cursor `~/.cursor/rules` and `profiles/`, not in User Rules.
 
-`MEMORIES.md` inside **this** `agent-rules` clone remains gitignored for backwards compatibility, but prefer `$CODE_ROOT/MEMORIES.md` so every harness finds one sys-wide file.
+Committed template on this fork: link:MEMORIES.example.md[`MEMORIES.example.md`]. Upstream uses `machine.example.md` / `harness.example.md`.
 
-Do **not** commit per-repo `MEMORIES.md`. Project facts → `AGENTS.md` + docs.
+Do **not** commit per-repo `MEMORIES.md` / `machine.md`. Project facts → `AGENTS.md` + docs.
 
 Example line:
 

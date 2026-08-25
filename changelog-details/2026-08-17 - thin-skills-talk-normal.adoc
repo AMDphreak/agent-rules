@@ -1,0 +1,5 @@
+= 2026-08-17 — Thin always-on; write-a-skill; talk-normal skill
+
+* Thin always-on rules; keep `talk-normal` as personal on-demand skill under `skills/talk-normal/`.
+* Add `write-skill` then rename package → `write-a-skill`.
+* Always-on file-link Cursor rule (`.cursor/rules/chat-file-links.mdc`).

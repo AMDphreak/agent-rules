@@ -1,0 +1,7 @@
+= 2026-08-25 — README/Antora/changelog modules merged with main
+
+* Merged PR #1 onto current `main`: portable `RULES.md` + skill pointers coexist with `general/readme-layout.md` and `general/antora-docs-sites.md`.
+* `general/documentation.md`: Lunr/AI-search/alias/math plumbing; news/blog title stance; personal `writing-news-vs-blog` skill vs team `writing-news` / `writing-blog`.
+* `MAIN.md` / `general/global.md`: optional assembly for readme-layout, antora-docs-sites, app-architecture; optional suggestions + skills sections.
+* `.cursor/rules/docs-math.mdc` (always-on math plumbing); secrets-distribution suggestion + optional Cursor rule.
+* `skills/CATALOG.md`: register `writing-news-vs-blog`.

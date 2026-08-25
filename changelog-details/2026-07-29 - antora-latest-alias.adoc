@@ -1,0 +1,3 @@
+= 2026-07-29 — Antora component-root-to-latest
+
+* Require Antora component-root-to-latest alias (or equivalent) as essential for versioned components until core opt-in.

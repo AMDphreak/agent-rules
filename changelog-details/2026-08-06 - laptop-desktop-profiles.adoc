@@ -1,0 +1,11 @@
+= 2026-08-06 — Laptop/desktop profiles + sync-before-work
+
+== Profiles (observed)
+
+* Before: only `profiles/my-desktop.md` / `my-laptop.md` templates.
+* After: concrete `laptop.md` / `desktop.md` + `*.overlay.md` for rules-manager `hostname_map` (`RJ-WIN-Laptop` → laptop, etc.).
+* Laptop overlay: prefer `C:\code` (no `Z:`); fork path under `.forks/agent-rules`; compose via rules-manager.
+
+== Sync rule
+
+* Cursor project rule / always-on: `git fetch` + check behind before multi-file work; wording fix same day.

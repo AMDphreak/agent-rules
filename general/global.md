@@ -8,6 +8,7 @@ These apply universally unless a profile says otherwise.
 ## General best practices
 
 - Write explanations as if for readers who want plain language.
+- **File names in chat:** when you mention a file you are working on or the user asked about, highlight the **file name** as a markdown link to the workspace-relative path (forward slashes) so a click opens it in the editor. Example: [`SKILL.md`](skills/write-a-skill/SKILL.md). Cursor also auto-linkifies backtick-wrapped relative paths. Do not use `file://` or Windows backslashes in chat links. For line ranges, use Cursor code citation fences (`startLine:endLine:path`). Do not link incidental mentions of a common filename as a concept.
 - Use `.gitignore` as an allow-list with additional exclusions. Exclude all files by default and update the allowlist when adding new files.
 - Always put Python projects in a `venv`.
 - When building a project fails, check for outdated code instead of downgrading dependencies. If a build fails because of a missing icon, stop building. Instead, import icons from a free icon library online to build the app, or ask the user to add the missing icon.
@@ -18,7 +19,7 @@ These apply universally unless a profile says otherwise.
 ## AI operations and formatting
 
 - When a repo depends on external libraries or frameworks whose APIs are likely to be stale in AI memory, use Context7 MCP. If no docs have been indexed, alert the user that they should submit the project's docs, and provide a URL for the docs and Context7 (<https://context7.com/>). If Context7 is not found, explain Context7 and MCP and direct the user to their docs overview: <https://context7.com/docs/overview>.
-  - If the user confirms this is unavailable, use the fallback strategy in [Outdated code protocol fallback](#outdated-code-protocol-fallback).
+  - If the user confirms this is unavailable, use Cursor skill **`outdated-code-protocol`**.
 - AI formatting pitfalls (AsciiDoc):
   - Checklist: fails to include asterisk. `* [ ]`
   - Bold text as pseudoheading: fails to insert a blank line between **text** and the next block.
@@ -34,18 +35,15 @@ These apply universally unless a profile says otherwise.
   - `linux` → `general/linux.md`
   - If `ENVIRONMENT` is missing, ask the user which file applies before assuming an OS.
 - You **must** read `general/creator.md` before acting.
-- Read `general/documentation.md` when you are authoring, structuring, or publishing project documentation (optional layer for doc-heavy work).
+- Read `general/documentation.md` when you are authoring, structuring, or publishing project documentation.
 - Read `general/antora-docs-sites.md` when the task involves Antora sites, playbooks, GitHub Pages for docs, or wiring components into an org docs hub.
 - Read `general/readme-layout.md` when creating or revising a GitHub-facing README.
 - Read `general/app-architecture.md` when you are scaffolding, building, shipping, packaging, or maintaining an application, CLI, TUI, publishable library, game client, or service (optional layer; points at local Software Product Essentials docs).
+- Heavy curricula: team Cursor skills (`dev-centr/agent-rules/skills/CATALOG.md`). Personal-only: see this fork's `skills/CATALOG.md`.
 
-## talk-normal (optional tone reference)
+## talk-normal
 
-When the user (or task) explicitly asks for guidance on *natural*, less templated assistant writing style, read the prompt material from the upstream repository [hexiecs/talk-normal](https://github.com/hexiecs/talk-normal). Treat it as a **read-only reference clone**; do **not** fork it unless the user asks.
-
-- **Local clone path (third-party; see `general/folder-schema.md`):** `$CODE_ROOT/github.com/.clones/hexiecs/talk-normal`
-- **Bootstrap if missing:** create the parent directory if needed, then run `git clone https://github.com/hexiecs/talk-normal.git "$CODE_ROOT/github.com/.clones/hexiecs/talk-normal"`
-- **Precedence:** That repository is *supplemental*. User chat rules, repository-specific instructions, and `profiles/*.md` take priority when they conflict.
+When the user explicitly asks: Cursor skill **`talk-normal`** (`skills/talk-normal/`). User/project rules win on conflict.
 
 ## writing-news-vs-blog (optional article skill)
 
@@ -56,22 +54,6 @@ When drafting or revising **news** or **blog/essay** body copy (not ordinary cha
 - If the user teaches you something about **this machine/environment**, or you probe the local environment and will need it again, you **must** read and update **`$CODE_ROOT/MEMORIES.md`** (create if missing; see `MEMORIES.example.md`). It is machine-local and never committed. Every memory needs a counter starting at 1; increment on reuse.
 - Project knowledge belongs in the repo (`AGENTS.md`, README, docs, `STYLE.adoc`) — not in MEMORIES and not in a per-repo `MEMORIES.md`.
 
-## Outdated code protocol fallback
+## Outdated code protocol
 
-*(Fallback strategy if Context7 is ignored)*
-
-- Create a repo-local workflow for AI agents and developers.
-- For that workflow, strongly prefer repo-local indexed docs or source over web search when the repo uses AI or RAG indexing and API accuracy matters.
-- Standard structure for that workflow:
-  - committed template manifest: `AI-LOCAL-LIBRARY-DOCS.example.json5`
-  - ignored machine-local manifest: `AI-LOCAL-LIBRARY-DOCS.local.json5`
-  - ignored local docs or source cache inside the repo: `docs/_local-library-docs/`
-  - refresh or bootstrap script in `scripts/` to clone or update those docs or source repositories
-- The filename `AI-LOCAL-LIBRARY-DOCS.local.json5` is intentionally loud so AI tools notice it. Use that exact name unless the user asks otherwise.
-- Add `.gitignore` entries for `AI-LOCAL-LIBRARY-DOCS.local.json5` and `docs/_local-library-docs/` when setting this up.
-- Document this workflow in the repo README and docs so new developers and AI agents know to initialize it before doing version-sensitive dependency work.
-- In that documentation, tell AI to search local cloned docs or source first, then use web search only when local docs are missing, stale, or clearly not the version in use.
-- For D and similar ecosystems, prefer cloning the source repositories because doc comments, examples, and actual implementation are often all needed to resolve API truth.
-- If a developer wants a writable personal copy of a docs or source repo, prefer one local clone with multiple Git remotes (`origin` for the fork, `upstream` for the source project) instead of multiple duplicate local clones.
-- If many repositories on the same machine need the same supporting docs or source repositories, prefer a shared local Git cache or reference clone strategy. Use normal Git features like additional remotes, `git clone --reference` or `--reference-if-able`, or a local mirror cache. Avoid requiring hardlinks or symlinks as the primary strategy for large shared trees.
-- If web search is chosen instead of local docs, make that an explicit project decision in docs and tell AI to verify each dependency against upstream docs rather than trusting model memory.
+When Context7 is unavailable or ignored, use Cursor skill **`outdated-code-protocol`**. Do not paste that body here.

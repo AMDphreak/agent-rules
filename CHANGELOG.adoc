@@ -1,0 +1,117 @@
+= Changelog
+
+Personal fork of link:https://github.com/dev-centr/agent-rules[`dev-centr/agent-rules`].
+Backfilled from observed file content across commits (not only subjects).
+Detail pages under `changelog-details/`.
+
+Shared / org schema history (including `RULES.md` → `user.md`) lives upstream:
+
+* https://docs.devcentr.org/agent-rules/changelog.html
+
+This fork still ships **`RULES.md`** (not yet renamed to `user.md`). Prefer hive `$CODE_ROOT/machine.md` + `harness.md` on disk.
+
+== Schema evolution on this fork (observed)
+
+[cols="1,2,2"]
+|====
+| When | Before | After
+
+| 2026-03-23 (initial)
+| `RULES.md` = handoff + read-order; `MEMORIES.md` **in repo root** (gitignored)
+| profiles `my-desktop` / `my-laptop` hold constants
+
+| 2026-03-31
+| Multi-file read order only
+| `MAIN.md` entrypoint + consolidated paste `RULES.md` with **hardcoded** `CODE_ROOT = Z:\code`
+
+| 2026-03-31
+| Memories implied at repo root
+| Document `$CODE_ROOT/MEMORIES.md` as sys-wide location
+
+| 2026-08-06
+| Only `my-*` profile templates
+| Concrete `laptop.md` / `desktop.md` + overlays (`C:\code` vs `Z:\code`)
+
+| 2026-08-17
+| `RULES.md` constants embed `Z:\code`
+| Portable constants (resolve `%code%`); machine overlay → `%USERPROFILE%\.cursor\rules\machine.mdc`
+|====
+
+== 2026-08-25 — README/Antora/changelog modules merged with main
+
+* Rebase PR #1 onto `main`: portable `RULES.md`, skill pointers, and `general/readme-layout.md` / `general/antora-docs-sites.md` modules.
+* Math plumbing rule (`.cursor/rules/docs-math.mdc`); personal `writing-news-vs-blog` skill; secrets-distribution suggestion.
+* See link:changelog-details/2026-08-25%20-%20readme-antora-changelog-merge.adoc[Detailed changelog].
+
+== 2026-08-25 — skills-set human labels
+
+* Align `RULES.md` stamp line with upstream `AGENT_RULES_SYNCED_LABEL` / `skills-set/*` tags.
+
+== 2026-08-25 — Sync skills and rules on drift
+
+* Point agents at skill `sync-agent-rules` for cross-machine skill/rule drift.
+* See link:changelog-details/2026-08-25%20-%20sync-agent-rules-on-drift.adoc[Detailed changelog].
+
+== 2026-08-24 — Changelog introduced
+
+* Added repo-root `CHANGELOG.adoc` + `changelog-details/`; README links.
+* See link:changelog-details/2026-08-24%20-%20changelog-introduced.adoc[Detailed changelog].
+
+== 2026-08-19 — Issue filing policy + bitwarden-unlock
+
+* Align issue filing with org; personal skill `bitwarden-unlock`.
+* See link:changelog-details/2026-08-19%20-%20issue-policy-bitwarden.adoc[Detailed changelog].
+
+== 2026-08-18 — Org wrapper wording in User Rules
+
+* Creator section: pointer overlays, not submodules; not required for every GitHub org.
+* See link:changelog-details/2026-08-18%20-%20org-wrapper-wording.adoc[Detailed changelog].
+
+== 2026-08-17 — Portable User Rules (no hive paths)
+
+* Observed `RULES.md` constants: ``CODE_ROOT: `Z:\code` `` → resolve `%code%` / `$env:code`; warn User Rules sync.
+* Overlays instruct copy into `machine.mdc`, not User Rules.
+* See link:changelog-details/2026-08-17%20-%20portable-user-rules.adoc[Detailed changelog].
+
+== 2026-08-17 — Thin always-on; write-a-skill; talk-normal skill
+
+* Thin paste; `talk-normal` becomes on-demand skill; add/rename `write-a-skill`; file-link rule.
+* See link:changelog-details/2026-08-17%20-%20thin-skills-talk-normal.adoc[Detailed changelog].
+
+== 2026-08-12 — PR voice guidance
+
+* Plain-English inviting PR title and summary (`agents/editorial` / Cursor rule).
+* See link:changelog-details/2026-08-12%20-%20pr-voice.adoc[Detailed changelog].
+
+== 2026-08-06 — Laptop/desktop profiles + sync-before-work
+
+* Concrete profiles + overlays for rules-manager; remote sync before multi-file work.
+* See link:changelog-details/2026-08-06%20-%20laptop-desktop-profiles.adoc[Detailed changelog].
+
+== 2026-08-03 — Software Product Essentials pointer
+
+* Always-on / `general/app-architecture.md` points at SPE under `general-knowledge`.
+* `MEMORIES.example.md` appears in tree around this period.
+* See link:changelog-details/2026-08-03%20-%20spe-pointer.adoc[Detailed changelog].
+
+== 2026-07-29 — Antora component-root-to-latest
+
+* Require Antora component-root-to-latest alias as essential for versioned components.
+* See link:changelog-details/2026-07-29%20-%20antora-latest-alias.adoc[Detailed changelog].
+
+== 2026-05-13 — talk-normal reference path
+
+* Document talk-normal clone path and precedence (user/project rules win).
+* See link:changelog-details/2026-05-13%20-%20talk-normal-path.adoc[Detailed changelog].
+
+== 2026-03-31 — MAIN.md + CODE_ROOT MEMORIES; consolidated RULES
+
+* Reorganize into `MAIN.md` entrypoint; `RULES.md` becomes consolidated paste with desktop `Z:\code` constants.
+* Clarify `MEMORIES.md` lives at `$CODE_ROOT`, not only repo root.
+* See link:changelog-details/2026-03-31%20-%20main-and-memories.adoc[Detailed changelog].
+
+== 2026-03-23 — Fork foundation and 1-step assembly
+
+* Initial tree: `RULES.md` handoff, `general/*`, `profiles/my-*`.
+* Agent-directed entrypoint; 1-step assembly; OS env layers (`ENVIRONMENT`); fork wording vs upstream.
+* See link:changelog-details/2026-03-23%20-%20fork-foundation.adoc[Detailed changelog].

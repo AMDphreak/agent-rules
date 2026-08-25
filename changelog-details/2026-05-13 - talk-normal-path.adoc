@@ -1,0 +1,3 @@
+= 2026-05-13 — talk-normal reference path
+
+* Document talk-normal reference clone path under `$CODE_ROOT/github.com/.clones/...` and precedence: user/project rules win on conflict; clone if missing; do not fork unless asked.

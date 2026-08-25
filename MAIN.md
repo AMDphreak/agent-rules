@@ -4,9 +4,8 @@
 This is a modular context assembly file. For a consolidated, all-in-one ruleset, use **[RULES.md](./RULES.md)** instead.
 -->
 
-> **Dev Configuration (Fill these in before passing to AI)**:
-> `CODE_ROOT= # insert the path to your code hive`
-> `AGENT_RULES_PATH=$CODE_ROOT/github.com/amdphreak/agent-rules`
+> **Dev Configuration**: resolve `CODE_ROOT` from this host (`%code%` / Cursor `~/.cursor/rules` / `profiles/<id>.md`). Do not bake a drive letter into Cursor User Rules (those sync).
+> `AGENT_RULES_PATH=$CODE_ROOT/github.com/AMDphreak/agent-rules`
 
 You are operating under this rules set.
 
@@ -27,24 +26,27 @@ Read these files **simultaneously in parallel tool calls** to assemble your full
 - `general/readme-layout.md` (only if the task involves creating or revising a GitHub-facing README.md / README.adoc)
 - `general/app-architecture.md` (only if the task involves scaffolding, building, shipping, packaging, or maintaining an application, CLI, TUI, publishable library, game client, or service)
 
+Optional heavy curricula are **Cursor skills** (team: `dev-centr/agent-rules/skills/`; this fork: `skills/CATALOG.md`). See team `skills/CATALOG.md` and this fork's `skills/CATALOG.md`.
+
 *(Fallback)*: If you lack native file reading tools, use a terminal to read them all in one command (e.g. `cat`), but beware of output truncation. If the host cannot read the filesystem, follow the **obligations** below as your only source.
 
 ## Machine-local memory
 
 - Read **`$CODE_ROOT/MEMORIES.md`** for durable facts about **this workstation** (paths, PATH gaps, hardware). Create it if missing (see `MEMORIES.example.md`). Never commit it.
-- Do **not** use per-repo `MEMORIES.md` for project knowledge â€” put that in `AGENTS.md` + docs/README.
+- Do **not** use per-repo `MEMORIES.md` for project knowledge — put that in `AGENTS.md` + docs/README.
 
 ## Constants (interpret from the active profile)
 
-- `CODE_ROOT` â€” root directory for all clones. On Windows, resolve from User env `%code%` / `$env:code` (also `CODE_ROOT`); profile values are the compose-time fallback. Prefer short roots (`C:\code`, `Z:\code`) over `%USERPROFILE%\code`.
-- `GITHUB_USER` â€” GitHub username for path examples.
-- `ISSUES_REPO` â€” path to the `.issues` repository when that workflow is used (`$CODE_ROOT/github.com/<user>/.issues`).
-- `ENVIRONMENT` â€” selects which OS layer file to apply: `windows` â†’ `general/windows.md`, `mac` â†’ `general/mac.md`, `linux` â†’ `general/linux.md`.
+- `CODE_ROOT` — root directory for all clones.
+- `GITHUB_USER` — GitHub username for path examples.
+- `ISSUES_REPO` — path to the `.issues` repository when that workflow is used.
+- `ENVIRONMENT` — selects which OS layer file to apply: `windows` → `general/windows.md`, `mac` → `general/mac.md`, `linux` → `general/linux.md`.
 
 ## Obligations (always)
 
 - **OS/Shell:** Assume **Windows 10/11** and **PowerShell 7** unless explicitly told otherwise.
 - Write explanations in plain language.
+- **File names in chat:** when you mention a file you are working on or the user asked about, write the file name as a markdown link to the workspace-relative path (forward slashes) so a click opens it in the editor. Do not use `file://` or Windows backslashes in chat links.
 - Treat `.gitignore` as an allow-list unless the project says otherwise (exclude `*` then allow specific).
 - **Sync with remote before multi-file work:** in each affected git repo, `git fetch` and check `git status -sb` for `behind`. If the branch tracks a remote and is behind, pull/rebase (or merge) **before** coding. Do not invent a large change set against a stale local HEAD.
 - For Python, use a `venv`; prefer `uv` over `pip`; install `uv` in scripts if missing.
@@ -53,7 +55,7 @@ Read these files **simultaneously in parallel tool calls** to assemble your full
 
 ## Dev-Centr product scope
 
-These rules are for **end-user / project** agents. **Dev-Centr application automation** (acting on behalf of the user) must load `https://github.com/dev-centr/devcentr-agent-rules` instead of this repositoryâ€”do not conflate the two.
+These rules are for **end-user / project** agents. **Dev-Centr application automation** (acting on behalf of the user) must load `https://github.com/dev-centr/devcentr-agent-rules` instead of this repository—do not conflate the two.
 
 ## Optional suggestions
 
@@ -61,7 +63,8 @@ Files under `suggestions/` are **not** auto-loaded by this assembly. Open them w
 
 ## Optional Cursor skills (this repo)
 
-Skills under `skills/` are **not** part of MAIN context assembly. Install or junction into `~/.cursor/skills/<name>/` so Cursor can discover them on demand. Example: `skills/writing-news-vs-blog` for news vs blog body copy (see `general/documentation.md`).
+Files under `skills/` are **not** auto-loaded by MAIN assembly. Junction into `~/.cursor/skills/<name>/` for Cursor discovery. Skill `write-a-skill` (`skills/write-a-skill/`) when authoring skills — description = trigger words, not a lay blurb. Example: `skills/writing-news-vs-blog` for news vs blog body copy (see `general/documentation.md`).
+
 ## Memory file format (when writing `$CODE_ROOT/MEMORIES.md`)
 
 Stable workstation facts only; see `MEMORIES.example.md`. One line shape:

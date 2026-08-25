@@ -4,20 +4,15 @@ Read this file when you **author, structure, or publish** project documentation 
 
 ## Structure
 
-- When you design documentation for a project, consider the **Diátaxis** model (tutorials, how-to, explanation, reference) so material is easy to navigate.
-- **GitHub README layout** (org docs badge, CI badge, centered header, Built With, TOC, back-to-top) is specified in `general/readme-layout.md`. Blanks: `dev-centr/readme-template`. Hand-edit per repo; do not batch-script cross-repo README rewrites.
-- Prefer **AsciiDoc** READMEs for first-party repos; retain **Markdown** on upstream forks; keep/add a Markdown copy when a package registry only parses Markdown. Details in `general/readme-layout.md`.
-
-## Antora (when used)
-
-- **Default stack:** Antora + **Valentus** UI (`antora-supplemental/valentus-theme`). Customize colors and logo from the org’s existing brand assets (org `.github`, eponymous site repo, or other central branding)—do not invent a one-off palette per component.
-- If the project uses **Antora**, follow the publishing and layout guidance in the Dev-Centr documentation repository: `dev-centr/docs` — especially `docs/modules/ROOT/pages/publishing/antora-essential-extensions.adoc` and `docs/modules/ROOT/pages/publishing/antora-ui-branding.adoc`.
-- **One Antora site per org** that already has a hub. Do not publish secondary per-repo Antora sites on GitHub Pages. Keep `docs/` in the product repo; **wire** into the hub playbook. See `general/antora-docs-sites.md`. Actively deduplicate when you find errant sites. Does **not** apply to mixtures of different docs systems (Antora + Fumadocs is fine).
+- **Diátaxis** (tutorials, how-to, explanation, reference).
+- Public README face: skill **`public-readme`**; layout detail in `general/readme-layout.md`. Hand-edit per repo; do not batch-script cross-repo README rewrites.
+- **Antora hubs:** skill **`antora-org-site`**; hub wiring in `general/antora-docs-sites.md`. Valentus lean; **Facto** compose pack `antora-supplemental/antora-facto` — confirm. Encoding: skill **`fix-docs-encoding`**. Org detail when present: `dev-centr/agent-rules` `agents/engineering/antora.md`.
 - **Essential extension — Lunr search:** Every Antora site we publish must enable `@antora/lunr-extension` (install the package and register it under `antora.extensions`). Treat client-side search as required plumbing. Register Lunr before wrappers such as `@antora-supplemental/antora-search-chat`.
 - **Essential extension — AI search/help:** Add the AI-assisted layer from **`antora-supplemental`** — prefer [`antora-search-chat`](https://github.com/antora-supplemental/antora-search-chat) (Lunr-first Search/Ask omnibox). Related: [`antora-ai-help-extension`](https://github.com/antora-supplemental/antora-ai-help-extension). If `antora-supplemental` (or those extensions) cannot be found after a reasonable search, **stop and alert the user** so they can notify whoever owns this automation rule — then wait for a reply.
 - **Essential extension — alias component root → latest:** Versioned Antora components must not leave bare `/component/` as a 404. Enable `@antora-supplemental/alias-component-to-latest` (or equivalent) on every multi-version (or numbered-version) site until Antora core ships an opt-in for this. Treat it as required site plumbing, not optional polish.
 - **Essential plumbing — math formulas:** Every docs site (Antora, Markdown/Astro, AsciiDoc marketing sites) must ship math rendering **even when the current page has no formulas**. Antora: playbook `asciidoc.attributes.stem: latexmath` plus KaTeX (`site-math.js` in Valentus / org supplemental-ui). Use `stem:[…]` / `[stem]` blocks for LaTeX. Markdown sites: `remark-math` + `rehype-katex` (or equivalent) and KaTeX CSS. Do not leave `$…$` / `Hash(Bytes_…)` as raw prose when the source discussion used math.
 - **Upstream:** Prefer commenting on existing Antora discussions ([antora/antora#291](https://gitlab.com/antora/antora/-/issues/291)) over opening duplicate issues. Goal: opt-in core playbook key (e.g. `urls.alias_component_to_latest: true`), same behavior as the documented extension use case.
+- Changelogs: skill **`owned-changelog`**. Shippable apps: skill **`ship-app`**. PRs: skill **`draft-pr`**.
 
 ## Relationship to creator rules
 
@@ -43,11 +38,11 @@ When authoring or reviewing titles:
 5. **Docs topics** — concept names.
 6. One idea per news item; big idea first; human names before CLI tokens when possible.
 
-See each site’s `STYLE.adoc`. Philosophy essays: **Titles as orientation** (HCI Nerdz + ryanjohnson.dev). Cursor `.cursor/rules/*.mdc` is a **directory**, not one file. Project agent facts → `AGENTS.md`. Workstation facts → `$CODE_ROOT/MEMORIES.md` only (never per-repo `MEMORIES.md`).
+See each site's `STYLE.adoc`. Philosophy essays: **Titles as orientation** (HCI Nerdz + ryanjohnson.dev). Cursor `.cursor/rules/*.mdc` is a **directory**, not one file. Project agent facts → `AGENTS.md`. Workstation facts → `$CODE_ROOT/MEMORIES.md` only (never per-repo `MEMORIES.md`).
 
-## Body copy: news vs blog (Cursor skill — not always-on)
+## Body copy: news vs blog
 
-Title stance above is thin and stays in rules. **Full news/blog body-copy directives** live in the Cursor skill `writing-news-vs-blog` (on-demand; do not paste into User Rules).
+Team skills **`writing-news`** / **`writing-blog`** cover org work. **Personal fork:** Cursor skill `writing-news-vs-blog` — on-demand; do not paste into User Rules.
 
 - **Canonical (this repo):** `skills/writing-news-vs-blog/` (`SKILL.md`, `news.md`, `blog.md`, `published-sources.md`)
 - **Cursor install:** `~/.cursor/skills/writing-news-vs-blog` (junction to the path above on this machine)

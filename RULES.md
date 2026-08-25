@@ -1,25 +1,31 @@
 # Agent Rules
-<!-- Consolidated agent preamble. Paste into User Rules / AGENTS.md. Detail lives in general/*.md when assembling from MAIN.md. -->
+<!-- Consolidated agent preamble. Paste **this file** into Cursor User Rules / AGENTS.md. Do **not** paste `agent-rules.composed.md` or `profiles/*.overlay.md` into Cursor Settings — User Rules sync across machines. This-machine hive paths belong in `%USERPROFILE%\.cursor\rules\` (local `.mdc`; does not sync). Detail lives in `general/*.md` when assembling from MAIN.md. Do **not** paste skill bodies into this file. -->
 
 ## Constants
-- CODE_ROOT: `C:\code`
+- CODE_ROOT: resolve `$env:code` / `%code%` / `$env:CODE_ROOT` on this host (never a second hive under the user profile). Concrete path lives only in this machine's Cursor `~/.cursor/rules` and `profiles/<desktop|laptop>.md` — not in User Rules.
 - GITHUB_USER: `amdphreak`
-- ISSUES_REPO: `C:\code\github.com/AMDphreak/.issues`
+- ISSUES_REPO: `$CODE_ROOT/github.com/AMDphreak/.issues`
 - ENVIRONMENT: `windows`
 - MEMORIES: `$CODE_ROOT/MEMORIES.md` (sys-wide, machine-local — not per repo)
 
 ## Core
 - Plain language: keep explanations easy to read.
+- **File names in chat:** when you mention a file you are working on or the user asked about, write the **file name** as a markdown link to the workspace-relative path (forward slashes) so a click opens it in the editor. Do not use `file://` or Windows backslashes in chat links.
 - Gitignore: allow-list (`*` then `!path`); update when adding files. Do **not** allow-list `MEMORIES.md` (keep it ignored).
 - **Sync with remote before multi-file work:** in each affected git repo, `git fetch` and check `git status -sb` for `behind`. If the branch tracks a remote and is behind, pull/rebase (or merge) **before** coding. Do not invent a large change set against a stale local HEAD.
+- **End of agent run:** if the run changed files, compose logical commits and push before the final reply (skill `push-code`; detail `general/end-of-run.md`). Skip only if the user said not to commit/push.
+- **Sync skills/rules on drift:** when discovery install, always-on paste, or `$AGENT_RULES_PATH` SHA drifts from the shared reference (`dev-centr/agent-rules`), run skill `sync-agent-rules` and apply updates (stamp `AGENT_RULES_SYNCED_SHA` + `AGENT_RULES_SYNCED_LABEL` / `skills-set/*` in `$CODE_ROOT/harness.md`).
 - Python: always `venv`; prefer `uv` over `pip`; install `uv` in scripts if missing.
 - Build failures: fix project code over downgrading deps; missing icon → stop loop, placeholder or ask.
 - Task lists in files: mark done with checkmark emojis.
-- Changelogs: match the repo’s existing style.
+- Changelogs: match the repo's existing style; owned-project layout is skill `owned-changelog`.
+- **This-machine paths:** read `%USERPROFILE%\.cursor\rules\` (local `.mdc`; not Settings User Rules). Cursor Settings User Rules sync across machines — never put hive or drive letters there.
+- Never write secret values into git, docs, `MEMORIES.md`, or `.env.example` (name-only registry: skill `env-names-registry`).
+- **Web fonts:** prefer self-hosting (Fontsource / local `woff2` + preload); do not `@import` Google Fonts or wait on a CDN for first paint. Detail: `general/self-host-fonts.md` (skill `self-host-fonts`).
 
 ## Environment
 - OS/Shell: Windows 10/11 + PowerShell 7 unless told otherwise.
-- **Code hive:** Windows User env `%code%` (= `CODE_ROOT`) points at the short root (`C:\code` or `Z:\code`). Prefer that over `%USERPROFILE%\code` (path length). Resolve `$env:code` / `$env:CODE_ROOT` before inventing paths; never keep a second hive under the user profile.
+- **Code hive:** Windows User env `%code%` (= `CODE_ROOT`) is the short hive root. Prefer that over `%USERPROFILE%\code` (path length). Resolve `$env:code` / `$env:CODE_ROOT` before inventing paths; never keep a second hive under the user profile.
 - Path refresh after tool installs:
   ```powershell
   $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
@@ -35,25 +41,26 @@
 
 ## Creator (owned orgs)
 - Transfers: `gh api`.
-- Issues: draft in `ISSUES_REPO` per its instructions; never only in the command.
+- **Agent rules:** canonical template is `dev-centr/agent-rules`. Each owned org this hive initializes gets `{org}/agent-rules` (pointer README + thin org `AGENTS.md` — **no submodule**; clone/fetch `dev-centr/agent-rules`). House workflow, not a requirement for every GitHub org. `{org}/.github/AGENT-RULES.md` is a pointer only — do not submodule rules into `.github`. Shared changes: PR `dev-centr/agent-rules`; org-only: commit wrapper `AGENTS.md`. Script: `dev-centr/agent-rules/scripts/setup-org-agent-rules-wrapper.ps1`.
 - Config: SDL preferred; else JSON5 (`.json5` over `.json`).
-- Changelog: every project; functional changes; README links to it; index + `changelog-details/date - title`; backfill from git if missing; wire into docs; alert user if cross-org secrets are required.
+- Changelog: every owned project, functional changes — skill `owned-changelog`.
+- Issues: file for bugs, blockers, and external coordination — not routine owned-repo work (skill `owned-changelog`). When filing: skill `issue-reports`; never chat-only.
 
 ## Docs
 - Structure: Diátaxis (tutorials, how-to, explanation, reference).
 - Format: AsciiDoc by default; retain Markdown on upstream forks; keep/add Markdown when a package registry only parses Markdown. See `general/readme-layout.md`.
-- Antora: Valentus + org branding; follow `dev-centr/docs` essentials — Lunr on every site; AI search via `antora-supplemental/antora-search-chat` (alert user and wait if the org/extensions cannot be found); versioned components need `@antora-supplemental/alias-component-to-latest` (or equiv) until core opt-in; prefer comments on antora/antora#291 over duplicate issues.
+- Antora: Valentus + org branding; skill `antora-org-site` — Lunr on every site; AI search via `antora-supplemental/antora-search-chat` (alert user and wait if the org/extensions cannot be found); versioned components need `@antora-supplemental/alias-component-to-latest` (or equiv) until core opt-in; prefer comments on antora/antora#291 over duplicate issues. Hub wiring: `general/antora-docs-sites.md`.
 - **Math on every docs site:** enable rendering even when unused (Antora `stem: latexmath` + KaTeX/`site-math.js`; Markdown `remark-math` + `rehype-katex`). Prefer `stem:[...]` / `$...$` over raw formula prose.
 - **One Antora site per org** with a hub: wire `docs/` into the hub playbook; never publish a second Antora site on project GitHub Pages. See `general/antora-docs-sites.md`.
-- **Public README layout:** when creating/revising GitHub-facing READMEs, follow `general/readme-layout.md` (Best-README adapted: centered for-the-badge chrome, **Explore the docs »** → org hub, TOC if >3 sections, role-grouped Built With, back-to-top). Do not add Docs/CI shields that break the established look. Hand-edit per repo.
+- **Public README layout:** when creating/revising GitHub-facing READMEs, follow `general/readme-layout.md` (Best-README adapted: centered for-the-badge chrome, **Explore the docs »** → org hub, TOC if >3 sections, role-grouped Built With, back-to-top). Do not add Docs/CI shields that break the established look. Hand-edit per repo. Skill `public-readme` when needed.
 - Titles: follow site `STYLE.adoc` / `AGENTS.md` (not MEMORIES). **News = outward** (shared record); **blog = inward** (ideas, ideals, philosophy, tutorials, thinking in public). Short defaults — first-party news omits org; action essays pass implied [On] and drop surplus *the*; prefer `X as Y` / *when* / disproof / questions over rigid `X is Y`; attach floating modifiers to an object; Antora topics = concept names. Philosophy: `Titles as orientation` (HCI Nerdz + ryanjohnson.dev). Cursor rules = `.cursor/rules/*.mdc` dir; this file stays the paste preamble.
 - Project facts for agents: `AGENTS.md` + README/docs. Do not commit per-repo `MEMORIES.md`.
-- **App shipping architecture:** when scaffolding/building/shipping apps (GUI, CLI, TUI, libs, games, services), read `general/app-architecture.md` and adhere to local Software Product Essentials at `$CODE_ROOT/github.com/dev-centr/general-knowledge/docs/modules/ROOT/pages/explanation/architecture/` (hub: `software-product-essentials.adoc`). About/build info, debug dump, Windows auto-update, installers, and CI release pipelines are core—not polish.
+- On demand (do not inline): team skills in `dev-centr/agent-rules/skills/` — `antora-org-site`, `public-readme`, `ship-app`, `draft-pr`, `writing-news`, `writing-blog`, and `skills/CATALOG.md`. Personal-only: `talk-normal`, `writing-news-vs-blog` (see `skills/CATALOG.md`).
 
 ## AI ops
 - AsciiDoc: checklists `* [ ]`; blank line after **bold** headings; list continuations `+`; images `image::`.
 - MEMORIES: **only** `$CODE_ROOT/MEMORIES.md` (sys-wide workstation facts). Create if missing. Usage counter from 1; increment on use. Gitignored / never committed. Read it when environment facts matter. Format example: `$CODE_ROOT/github.com/AMDphreak/agent-rules/MEMORIES.example.md`.
-- Stale APIs: Context7 MCP (https://context7.com/); else Outdated Code Protocol.
-- talk-normal (only if asked): prompts under `$CODE_ROOT/github.com/.clones/hexiecs/talk-normal`; clone if missing; do not fork unless asked; user/project rules win on conflict.
+- Stale APIs: Context7 MCP (https://context7.com/); else skill `outdated-code-protocol`.
+- Commits / push / PRs: skills `git-commit`, `push-code`, and `draft-pr`. At end of any run that changed files, load `push-code` (standing auth). Load `draft-pr` when opening a PR.
+- Cursor skills: junction `dev-centr/agent-rules/skills/<name>` into `~/.cursor/skills/<name>/`. On drift: skill `sync-agent-rules`. Personal packs: `skills/CATALOG.md` in this fork. Do **not** paste skill bodies here. Skill `write-a-skill`: description field = trigger words, not a lay blurb.
 - writing-news-vs-blog (news/blog body copy only): Cursor skill — canonical `skills/writing-news-vs-blog/`; do **not** paste full directives into always-on User Rules; titles stance stays under Docs above.
-- Outdated Code Protocol: `AI-LOCAL-LIBRARY-DOCS.local.json5` + `docs/_local-library-docs/`; prefer local indexed docs/source; for Dlang prefer cloning source.

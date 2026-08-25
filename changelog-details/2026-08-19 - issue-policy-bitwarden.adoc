@@ -1,0 +1,5 @@
+= 2026-08-19 — Issue filing policy + bitwarden-unlock
+
+* Align always-on issue policy with org: file for bugs, blockers, and external coordination; routine owned-repo functional changes use skill `owned-changelog`.
+* Add personal skill `bitwarden-unlock` (scripts under `skills/bitwarden-unlock/`).
+* Skills tree on this fork still thinner than upstream; does not yet rename `RULES.md` → `user.md`.

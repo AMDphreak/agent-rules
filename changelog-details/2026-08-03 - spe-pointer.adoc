@@ -1,0 +1,4 @@
+= 2026-08-03 — Software Product Essentials pointer
+
+* Point agents at Software Product Essentials under `dev-centr/general-knowledge` when scaffolding/shipping apps.
+* `MEMORIES.example.md` present in tree by this era (committed template for `$CODE_ROOT/MEMORIES.md`).
