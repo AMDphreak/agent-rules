@@ -1,0 +1,4 @@
+= 2026-08-06 — Laptop/desktop profiles
+
+* Added `profiles/laptop.md` / `profiles/desktop.md` (constants) and `*.overlay.md` (machine-only bullets) for rules-manager `hostname_map`.
+* Cursor project rule: sync with remote before multi-file work.

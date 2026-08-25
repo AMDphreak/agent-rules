@@ -1,0 +1,6 @@
+= 2026-08-17 — Portable User Rules (no hive paths)
+
+* Cursor Settings **User Rules sync across machines**. Hard-coded hive paths (`C:\code`, `Z:\code`) leaked between laptop and desktop.
+* Keep `RULES.md` portable: resolve `%code%` / `$CODE_ROOT`; never paste `agent-rules.composed.md` or `profiles/*.overlay.md` into User Rules.
+* Put this-machine constants in `%USERPROFILE%\.cursor\rules\machine.mdc` (`alwaysApply: true`).
+* Commit: `4f3b284` — Keep Cursor User Rules portable so hive paths do not sync across machines.

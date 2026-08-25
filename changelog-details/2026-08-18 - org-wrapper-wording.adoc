@@ -1,0 +1,5 @@
+= 2026-08-18 — Org wrapper wording in User Rules
+
+* Creator / agent-rules section: each owned org may get `{org}/agent-rules` as a pointer README + thin `AGENTS.md` (no submodule).
+* Marked as house org init, not a requirement for every GitHub org.
+* Shared changes PR to `dev-centr/agent-rules`; org-only diffs stay in the wrapper.

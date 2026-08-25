@@ -71,19 +71,25 @@ The agent will automatically pull:
 6. `general/folder-schema.md`
 (and `general/documentation.md` when the task is docs). Heavy playbooks are Cursor skills — team `dev-centr/agent-rules/skills/CATALOG.md`.
 
-Create **`$CODE_ROOT/MEMORIES.md`** for workstation facts (see **Machine-local memories** below). Do not commit per-repo `MEMORIES.md`.
+Create **`$CODE_ROOT/machine.md`** (preferred) or legacy **`$CODE_ROOT/MEMORIES.md`** for workstation facts (see **Machine-local memories** below). Do not commit per-repo copies.
 
 For **Dev-Centr automation** acting on behalf of the user, the product should load rules from [devcentr-agent-rules](https://github.com/dev-centr/devcentr-agent-rules), not from this forkable repo.
 
+## Changelog
+
+- Index: [`CHANGELOG.adoc`](CHANGELOG.adoc)
+- Details: [`changelog-details/`](changelog-details/)
+- Upstream (schema rename `RULES.md` → `user.md`, `MEMORIES` → `machine.md`, harness layer): https://docs.devcentr.org/agent-rules/changelog.html
+
 ## Machine-local memories
 
-Canonical file: **`$CODE_ROOT/MEMORIES.md`**. Workstation-only; never commit. The concrete `$CODE_ROOT` for this PC lives in Cursor `~/.cursor/rules` and `profiles/`, not in User Rules.
+Prefer **`$CODE_ROOT/machine.md`** (upstream harness-neutral name). Legacy **`$CODE_ROOT/MEMORIES.md`** still works and stays gitignored. Harness wiring: **`$CODE_ROOT/harness.md`**. Cursor adapter: `%USERPROFILE%\.cursor\rules\machine.mdc` (does not sync).
 
-Committed template / format: link:MEMORIES.example.md[`MEMORIES.example.md`].
+The concrete `$CODE_ROOT` for this PC lives in Cursor `~/.cursor/rules` and `profiles/`, not in User Rules.
 
-`MEMORIES.md` inside **this** `agent-rules` clone remains gitignored for backwards compatibility, but prefer `$CODE_ROOT/MEMORIES.md` so every harness finds one sys-wide file.
+Committed template on this fork: link:MEMORIES.example.md[`MEMORIES.example.md`]. Upstream uses `machine.example.md` / `harness.example.md`.
 
-Do **not** commit per-repo `MEMORIES.md`. Project facts → `AGENTS.md` + docs.
+Do **not** commit per-repo `MEMORIES.md` / `machine.md`. Project facts → `AGENTS.md` + docs.
 
 Example line:
 

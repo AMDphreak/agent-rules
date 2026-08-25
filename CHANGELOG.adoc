@@ -1,0 +1,42 @@
+= Changelog
+
+Personal fork of link:https://github.com/dev-centr/agent-rules[`dev-centr/agent-rules`].
+Portable shared history (including the harness layer rename) lives upstream:
+
+* https://docs.devcentr.org/agent-rules/changelog.html
+* Source in canonical clone: `docs/modules/ROOT/pages/changelog.adoc`
+
+This file records **fork-specific** functional changes. Detail pages under `changelog-details/`.
+
+== 2026-08-19 — Issue filing policy + bitwarden-unlock
+
+* Align issue filing with org: bugs/blockers/external coordination; owned functional changes → changelog skill.
+* Add personal skill `bitwarden-unlock`.
+* See link:changelog-details/2026-08-19%20-%20issue-policy-bitwarden.adoc[Detailed changelog].
+
+== 2026-08-18 — Org wrapper wording in User Rules
+
+* Creator section documents house org init as pointer overlays (not submodules / not required for every GitHub org).
+* See link:changelog-details/2026-08-18%20-%20org-wrapper-wording.adoc[Detailed changelog].
+
+== 2026-08-17 — Portable User Rules (no hive paths)
+
+* `RULES.md` and Cursor User Rules must stay portable — no `C:\` / `Z:\` hive paths (Settings sync across machines).
+* Machine overlay: `%USERPROFILE%\.cursor\rules\machine.mdc` from `profiles/laptop|desktop` + overlays.
+* See link:changelog-details/2026-08-17%20-%20portable-user-rules.adoc[Detailed changelog].
+
+== 2026-08-06 — Laptop/desktop profiles
+
+* Added `profiles/laptop.md`, `profiles/desktop.md`, and overlays for rules-manager hostname map.
+* Sync-before-multi-file-work Cursor rule.
+* See link:changelog-details/2026-08-06%20-%20laptop-desktop-profiles.adoc[Detailed changelog].
+
+== Upstream schema note (2026-08-19)
+
+Canonical `dev-centr/agent-rules` renamed:
+
+* `RULES.md` → `user.md`
+* `$CODE_ROOT/MEMORIES.md` → `$CODE_ROOT/machine.md` (example `machine.example.md`)
+* `$CODE_ROOT/HARNESS.md` → `$CODE_ROOT/harness.md` (example `harness.example.md`)
+
+This fork still ships `RULES.md` until merged/rebased onto upstream. Prefer hive files `machine.md` / `harness.md` on disk already.
