@@ -1,0 +1,4 @@
+= 2026-08-12 — PR voice guidance
+
+* Plain-English inviting PR title and summary guidance for agents.
+* Editorial material under `agents/` begins appearing on this fork around this commit.

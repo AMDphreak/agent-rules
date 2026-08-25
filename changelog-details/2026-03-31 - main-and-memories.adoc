@@ -1,0 +1,19 @@
+= 2026-03-31 — MAIN.md + CODE_ROOT MEMORIES; consolidated RULES
+
+== Assembly
+
+* Add `MAIN.md` entrypoint; reorganize so agents assemble from MAIN + `general/*`.
+* `RULES.md` becomes consolidated one-stop paste (not only a read-order handoff).
+
+== Observed constants (desktop-oriented)
+
+----
+CODE_ROOT = Z:\code
+GITHUB_USER = amdphreak
+ISSUES_REPO = Z:\code\github.com\AMDphreak\.issues
+ENVIRONMENT = windows
+----
+
+== Memories location
+
+* Clarify workstation facts belong at **`$CODE_ROOT/MEMORIES.md`**, not only a gitignored file inside the agent-rules clone.

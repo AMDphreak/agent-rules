@@ -1,0 +1,12 @@
+= 2026-03-23 — Fork foundation and 1-step assembly
+
+== Initial tree (observed at `4caa24e`)
+
+* `RULES.md` (handoff + disk read-order), `README.md`, `CONTRIBUTING.md`, `general/{global,environment,creator,folder-schema}.md`, `profiles/my-desktop.md`, `profiles/my-laptop.md`.
+* Memories: create `MEMORIES.md` **in this repo root** when needed (gitignored) — later moved to `$CODE_ROOT`.
+
+== Same-day evolution
+
+* Agent-directed entrypoint; README clarifies human vs agent audience.
+* **1-step assembly** architecture in `RULES.md` (batched reads).
+* Sync upstream-shaped OS env layers: `ENVIRONMENT`, `general/windows|mac|linux.md`, `documentation.md`; fork profiles; fork-specific README/CONTRIBUTING wording.

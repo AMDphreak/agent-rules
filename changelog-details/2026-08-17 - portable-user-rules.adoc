@@ -1,6 +1,22 @@
 = 2026-08-17 — Portable User Rules (no hive paths)
 
-* Cursor Settings **User Rules sync across machines**. Hard-coded hive paths (`C:\code`, `Z:\code`) leaked between laptop and desktop.
-* Keep `RULES.md` portable: resolve `%code%` / `$CODE_ROOT`; never paste `agent-rules.composed.md` or `profiles/*.overlay.md` into User Rules.
-* Put this-machine constants in `%USERPROFILE%\.cursor\rules\machine.mdc` (`alwaysApply: true`).
-* Commit: `4f3b284` — Keep Cursor User Rules portable so hive paths do not sync across machines.
+Reconstructed from `RULES.md` and overlays at parent of `4f3b284` vs `4f3b284`.
+
+== Before (observed)
+
+----
+CODE_ROOT: `Z:\code`
+ISSUES_REPO: `Z:\code\github.com\AMDphreak/.issues`
+----
+
+Laptop overlay already preferred `C:\code` but did not yet forbid pasting overlays into User Rules.
+
+== After (`4f3b284`)
+
+* Constants resolve `$env:code` / `%code%` / `$env:CODE_ROOT`; concrete path only in `~/.cursor/rules` and profiles.
+* Comment block: do **not** paste `agent-rules.composed.md` or overlays into Settings — User Rules sync.
+* Overlay: copy into `%USERPROFILE%\.cursor\rules\machine.mdc` (`alwaysApply: true`).
+
+== Why it mattered
+
+Cursor Settings User Rules sync across machines; desktop briefly inherited laptop `C:\code` (and earlier `Z:\code`) from the synced paste.

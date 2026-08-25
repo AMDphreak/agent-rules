@@ -1,42 +1,102 @@
 = Changelog
 
 Personal fork of link:https://github.com/dev-centr/agent-rules[`dev-centr/agent-rules`].
-Portable shared history (including the harness layer rename) lives upstream:
+Backfilled from observed file content across commits (not only subjects).
+Detail pages under `changelog-details/`.
+
+Shared / org schema history (including `RULES.md` → `user.md`) lives upstream:
 
 * https://docs.devcentr.org/agent-rules/changelog.html
-* Source in canonical clone: `docs/modules/ROOT/pages/changelog.adoc`
 
-This file records **fork-specific** functional changes. Detail pages under `changelog-details/`.
+This fork still ships **`RULES.md`** (not yet renamed to `user.md`). Prefer hive `$CODE_ROOT/machine.md` + `harness.md` on disk.
+
+== Schema evolution on this fork (observed)
+
+[cols="1,2,2"]
+|====
+| When | Before | After
+
+| 2026-03-23 (initial)
+| `RULES.md` = handoff + read-order; `MEMORIES.md` **in repo root** (gitignored)
+| profiles `my-desktop` / `my-laptop` hold constants
+
+| 2026-03-31
+| Multi-file read order only
+| `MAIN.md` entrypoint + consolidated paste `RULES.md` with **hardcoded** `CODE_ROOT = Z:\code`
+
+| 2026-03-31
+| Memories implied at repo root
+| Document `$CODE_ROOT/MEMORIES.md` as sys-wide location
+
+| 2026-08-06
+| Only `my-*` profile templates
+| Concrete `laptop.md` / `desktop.md` + overlays (`C:\code` vs `Z:\code`)
+
+| 2026-08-17
+| `RULES.md` constants embed `Z:\code`
+| Portable constants (resolve `%code%`); machine overlay → `%USERPROFILE%\.cursor\rules\machine.mdc`
+|====
+
+== 2026-08-24 — Changelog introduced
+
+* Added repo-root `CHANGELOG.adoc` + `changelog-details/`; README links.
+* See link:changelog-details/2026-08-24%20-%20changelog-introduced.adoc[Detailed changelog].
 
 == 2026-08-19 — Issue filing policy + bitwarden-unlock
 
-* Align issue filing with org: bugs/blockers/external coordination; owned functional changes → changelog skill.
-* Add personal skill `bitwarden-unlock`.
+* Align issue filing with org; personal skill `bitwarden-unlock`.
 * See link:changelog-details/2026-08-19%20-%20issue-policy-bitwarden.adoc[Detailed changelog].
 
 == 2026-08-18 — Org wrapper wording in User Rules
 
-* Creator section documents house org init as pointer overlays (not submodules / not required for every GitHub org).
+* Creator section: pointer overlays, not submodules; not required for every GitHub org.
 * See link:changelog-details/2026-08-18%20-%20org-wrapper-wording.adoc[Detailed changelog].
 
 == 2026-08-17 — Portable User Rules (no hive paths)
 
-* `RULES.md` and Cursor User Rules must stay portable — no `C:\` / `Z:\` hive paths (Settings sync across machines).
-* Machine overlay: `%USERPROFILE%\.cursor\rules\machine.mdc` from `profiles/laptop|desktop` + overlays.
+* Observed `RULES.md` constants: ``CODE_ROOT: `Z:\code` `` → resolve `%code%` / `$env:code`; warn User Rules sync.
+* Overlays instruct copy into `machine.mdc`, not User Rules.
 * See link:changelog-details/2026-08-17%20-%20portable-user-rules.adoc[Detailed changelog].
 
-== 2026-08-06 — Laptop/desktop profiles
+== 2026-08-17 — Thin always-on; write-a-skill; talk-normal skill
 
-* Added `profiles/laptop.md`, `profiles/desktop.md`, and overlays for rules-manager hostname map.
-* Sync-before-multi-file-work Cursor rule.
+* Thin paste; `talk-normal` becomes on-demand skill; add/rename `write-a-skill`; file-link rule.
+* See link:changelog-details/2026-08-17%20-%20thin-skills-talk-normal.adoc[Detailed changelog].
+
+== 2026-08-12 — PR voice guidance
+
+* Plain-English inviting PR title and summary (`agents/editorial` / Cursor rule).
+* See link:changelog-details/2026-08-12%20-%20pr-voice.adoc[Detailed changelog].
+
+== 2026-08-06 — Laptop/desktop profiles + sync-before-work
+
+* Concrete profiles + overlays for rules-manager; remote sync before multi-file work.
 * See link:changelog-details/2026-08-06%20-%20laptop-desktop-profiles.adoc[Detailed changelog].
 
-== Upstream schema note (2026-08-19)
+== 2026-08-03 — Software Product Essentials pointer
 
-Canonical `dev-centr/agent-rules` renamed:
+* Always-on / `general/app-architecture.md` points at SPE under `general-knowledge`.
+* `MEMORIES.example.md` appears in tree around this period.
+* See link:changelog-details/2026-08-03%20-%20spe-pointer.adoc[Detailed changelog].
 
-* `RULES.md` → `user.md`
-* `$CODE_ROOT/MEMORIES.md` → `$CODE_ROOT/machine.md` (example `machine.example.md`)
-* `$CODE_ROOT/HARNESS.md` → `$CODE_ROOT/harness.md` (example `harness.example.md`)
+== 2026-07-29 — Antora component-root-to-latest
 
-This fork still ships `RULES.md` until merged/rebased onto upstream. Prefer hive files `machine.md` / `harness.md` on disk already.
+* Require Antora component-root-to-latest alias as essential for versioned components.
+* See link:changelog-details/2026-07-29%20-%20antora-latest-alias.adoc[Detailed changelog].
+
+== 2026-05-13 — talk-normal reference path
+
+* Document talk-normal clone path and precedence (user/project rules win).
+* See link:changelog-details/2026-05-13%20-%20talk-normal-path.adoc[Detailed changelog].
+
+== 2026-03-31 — MAIN.md + CODE_ROOT MEMORIES; consolidated RULES
+
+* Reorganize into `MAIN.md` entrypoint; `RULES.md` becomes consolidated paste with desktop `Z:\code` constants.
+* Clarify `MEMORIES.md` lives at `$CODE_ROOT`, not only repo root.
+* See link:changelog-details/2026-03-31%20-%20main-and-memories.adoc[Detailed changelog].
+
+== 2026-03-23 — Fork foundation and 1-step assembly
+
+* Initial tree: `RULES.md` handoff, `general/*`, `profiles/my-*`.
+* Agent-directed entrypoint; 1-step assembly; OS env layers (`ENVIRONMENT`); fork wording vs upstream.
+* See link:changelog-details/2026-03-23%20-%20fork-foundation.adoc[Detailed changelog].

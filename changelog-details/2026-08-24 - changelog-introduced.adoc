@@ -1,0 +1,4 @@
+= 2026-08-24 — Changelog introduced
+
+* Added `CHANGELOG.adoc` and `changelog-details/` at repo root (no Antora component on this fork).
+* README links to local changelog and upstream Antora changelog for schema renames.
