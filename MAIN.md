@@ -1,4 +1,4 @@
-# Main Rules
+﻿# Main Rules
 
 <!--
 This is a modular context assembly file. For a consolidated, all-in-one ruleset, use **[RULES.md](./RULES.md)** instead.
@@ -22,8 +22,11 @@ Read these files **simultaneously in parallel tool calls** to assemble your full
 - `general/creator.md`
 - `general/folder-schema.md`
 - `general/documentation.md` (only if the task involves authoring or publishing project documentation)
+- `general/antora-docs-sites.md` (only if the task involves Antora sites, playbooks, GitHub Pages for docs, or wiring components into an org docs hub)
+- `general/readme-layout.md` (only if the task involves creating or revising a GitHub-facing README.md / README.adoc)
+- `general/app-architecture.md` (only if the task involves scaffolding, building, shipping, packaging, or maintaining an application, CLI, TUI, publishable library, game client, or service)
 
-Optional heavy curricula are **Cursor skills** (team: `dev-centr/agent-rules/skills/`; this fork: `skills/talk-normal`). See team `skills/CATALOG.md` and this fork’s `skills/CATALOG.md`.
+Optional heavy curricula are **Cursor skills** (team: `dev-centr/agent-rules/skills/`; this fork: `skills/CATALOG.md`). See team `skills/CATALOG.md` and this fork's `skills/CATALOG.md`.
 
 *(Fallback)*: If you lack native file reading tools, use a terminal to read them all in one command (e.g. `cat`), but beware of output truncation. If the host cannot read the filesystem, follow the **obligations** below as your only source.
 
@@ -54,9 +57,13 @@ Optional heavy curricula are **Cursor skills** (team: `dev-centr/agent-rules/ski
 
 These rules are for **end-user / project** agents. **Dev-Centr application automation** (acting on behalf of the user) must load `https://github.com/dev-centr/devcentr-agent-rules` instead of this repository—do not conflate the two.
 
+## Optional suggestions
+
+Files under `suggestions/` are **not** auto-loaded by this assembly. Open them when the task matches (for example `suggestions/secrets-distribution-cli-mcp.md` when distributing API keys). Optional Cursor rule: `.cursor/rules/secrets-distribution-workflow.mdc` (`alwaysApply: false`).
+
 ## Optional Cursor skills (this repo)
 
-Files under `skills/` are **not** auto-loaded by MAIN assembly. Junction into `~/.cursor/skills/<name>/` for Cursor discovery. Skill `write-a-skill` (`skills/write-a-skill/`) when authoring skills — description = trigger words, not a lay blurb.
+Files under `skills/` are **not** auto-loaded by MAIN assembly. Junction into `~/.cursor/skills/<name>/` for Cursor discovery. Skill `write-a-skill` (`skills/write-a-skill/`) when authoring skills — description = trigger words, not a lay blurb. Example: `skills/writing-news-vs-blog` for news vs blog body copy (see `general/documentation.md`).
 
 ## Memory file format (when writing `$CODE_ROOT/MEMORIES.md`)
 

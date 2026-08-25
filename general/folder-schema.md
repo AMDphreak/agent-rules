@@ -16,7 +16,7 @@ Clone repositories into the following path pattern (set `CODE_ROOT` in your `pro
 
 Where:
 
-- **`CODE_ROOT`** is the base code directory (define per machine in `profiles/`)
+- **`CODE_ROOT`** is the base code directory (define per machine in `profiles/`; on Windows also expose as User env `%code%` / `CODE_ROOT` — see `general/windows.md`). Prefer a **short** path for deep trees/builds.
 - **`<host>`** is the Git host (e.g. `github.com`, `gitlab.com`)
 - **`<owner>`** is the organization or user name that owns the repository
 - **`<repo>`** is the repository name

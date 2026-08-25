@@ -16,5 +16,5 @@ Do not apply these rules to third-party open-source contributions unless explici
 
 ## Changelogs
 
-- Every **owned** project records **functional** changes. Match an existing changelog’s style when one exists.
+- Every **owned** project records **functional** changes. Match an existing changelog's style when one exists.
 - How to create, backfill, and wire: Cursor skill **`owned-changelog`**.

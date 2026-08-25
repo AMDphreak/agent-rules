@@ -37,6 +37,12 @@ This fork still ships **`RULES.md`** (not yet renamed to `user.md`). Prefer hive
 | Portable constants (resolve `%code%`); machine overlay → `%USERPROFILE%\.cursor\rules\machine.mdc`
 |====
 
+== 2026-08-25 — README/Antora/changelog modules merged with main
+
+* Rebase PR #1 onto `main`: portable `RULES.md`, skill pointers, and `general/readme-layout.md` / `general/antora-docs-sites.md` modules.
+* Math plumbing rule (`.cursor/rules/docs-math.mdc`); personal `writing-news-vs-blog` skill; secrets-distribution suggestion.
+* See link:changelog-details/2026-08-25%20-%20readme-antora-changelog-merge.adoc[Detailed changelog].
+
 == 2026-08-25 — skills-set human labels
 
 * Align `RULES.md` stamp line with upstream `AGENT_RULES_SYNCED_LABEL` / `skills-set/*` tags.

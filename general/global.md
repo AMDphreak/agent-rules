@@ -36,11 +36,18 @@ These apply universally unless a profile says otherwise.
   - If `ENVIRONMENT` is missing, ask the user which file applies before assuming an OS.
 - You **must** read `general/creator.md` before acting.
 - Read `general/documentation.md` when you are authoring, structuring, or publishing project documentation.
-- Heavy curricula: team Cursor skills (`dev-centr/agent-rules/skills/CATALOG.md`). Personal-only: skill **`talk-normal`**.
+- Read `general/antora-docs-sites.md` when the task involves Antora sites, playbooks, GitHub Pages for docs, or wiring components into an org docs hub.
+- Read `general/readme-layout.md` when creating or revising a GitHub-facing README.
+- Read `general/app-architecture.md` when you are scaffolding, building, shipping, packaging, or maintaining an application, CLI, TUI, publishable library, game client, or service (optional layer; points at local Software Product Essentials docs).
+- Heavy curricula: team Cursor skills (`dev-centr/agent-rules/skills/CATALOG.md`). Personal-only: see this fork's `skills/CATALOG.md`.
 
 ## talk-normal
 
 When the user explicitly asks: Cursor skill **`talk-normal`** (`skills/talk-normal/`). User/project rules win on conflict.
+
+## writing-news-vs-blog (optional article skill)
+
+When drafting or revising **news** or **blog/essay** body copy (not ordinary chat), use the Cursor skill `writing-news-vs-blog` — see `skills/writing-news-vs-blog/` in this repo. Keep it out of always-on User Rules; titles stance stays in `general/documentation.md`.
 
 ## Memory management
 

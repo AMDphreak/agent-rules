@@ -2,7 +2,7 @@
 <!-- Consolidated agent preamble. Paste **this file** into Cursor User Rules / AGENTS.md. Do **not** paste `agent-rules.composed.md` or `profiles/*.overlay.md` into Cursor Settings — User Rules sync across machines. This-machine hive paths belong in `%USERPROFILE%\.cursor\rules\` (local `.mdc`; does not sync). Detail lives in `general/*.md` when assembling from MAIN.md. Do **not** paste skill bodies into this file. -->
 
 ## Constants
-- CODE_ROOT: resolve `$env:code` / `%code%` / `$env:CODE_ROOT` on this host (never a second hive under the user profile). Concrete path lives only in this machine’s Cursor `~/.cursor/rules` and `profiles/<desktop|laptop>.md` — not in User Rules.
+- CODE_ROOT: resolve `$env:code` / `%code%` / `$env:CODE_ROOT` on this host (never a second hive under the user profile). Concrete path lives only in this machine's Cursor `~/.cursor/rules` and `profiles/<desktop|laptop>.md` — not in User Rules.
 - GITHUB_USER: `amdphreak`
 - ISSUES_REPO: `$CODE_ROOT/github.com/AMDphreak/.issues`
 - ENVIRONMENT: `windows`
@@ -18,7 +18,7 @@
 - Python: always `venv`; prefer `uv` over `pip`; install `uv` in scripts if missing.
 - Build failures: fix project code over downgrading deps; missing icon → stop loop, placeholder or ask.
 - Task lists in files: mark done with checkmark emojis.
-- Changelogs: match the repo’s existing style; owned-project layout is skill `owned-changelog`.
+- Changelogs: match the repo's existing style; owned-project layout is skill `owned-changelog`.
 - **This-machine paths:** read `%USERPROFILE%\.cursor\rules\` (local `.mdc`; not Settings User Rules). Cursor Settings User Rules sync across machines — never put hive or drive letters there.
 - Never write secret values into git, docs, `MEMORIES.md`, or `.env.example` (name-only registry: skill `env-names-registry`).
 - **Web fonts:** prefer self-hosting (Fontsource / local `woff2` + preload); do not `@import` Google Fonts or wait on a CDN for first paint. Detail: `general/self-host-fonts.md` (skill `self-host-fonts`).
@@ -48,10 +48,14 @@
 
 ## Docs
 - Structure: Diátaxis (tutorials, how-to, explanation, reference).
-- Format: AsciiDoc by default; retain Markdown on upstream forks; keep/add Markdown when a package registry only parses Markdown.
-- Titles: follow site `STYLE.adoc` / `AGENTS.md` (not MEMORIES). **News = outward**; **blog = inward**. First-party news omits org; action essays pass implied [On]; prefer `X as Y` / *when* / disproof / questions; attach floating modifiers to an object; Antora topics = concept names. Philosophy: `Titles as orientation` (HCI Nerdz + ryanjohnson.dev). Cursor rules = `.cursor/rules/*.mdc` dir; this file stays the paste preamble.
+- Format: AsciiDoc by default; retain Markdown on upstream forks; keep/add Markdown when a package registry only parses Markdown. See `general/readme-layout.md`.
+- Antora: Valentus + org branding; skill `antora-org-site` — Lunr on every site; AI search via `antora-supplemental/antora-search-chat` (alert user and wait if the org/extensions cannot be found); versioned components need `@antora-supplemental/alias-component-to-latest` (or equiv) until core opt-in; prefer comments on antora/antora#291 over duplicate issues. Hub wiring: `general/antora-docs-sites.md`.
+- **Math on every docs site:** enable rendering even when unused (Antora `stem: latexmath` + KaTeX/`site-math.js`; Markdown `remark-math` + `rehype-katex`). Prefer `stem:[...]` / `$...$` over raw formula prose.
+- **One Antora site per org** with a hub: wire `docs/` into the hub playbook; never publish a second Antora site on project GitHub Pages. See `general/antora-docs-sites.md`.
+- **Public README layout:** when creating/revising GitHub-facing READMEs, follow `general/readme-layout.md` (Best-README adapted: centered for-the-badge chrome, **Explore the docs »** → org hub, TOC if >3 sections, role-grouped Built With, back-to-top). Do not add Docs/CI shields that break the established look. Hand-edit per repo. Skill `public-readme` when needed.
+- Titles: follow site `STYLE.adoc` / `AGENTS.md` (not MEMORIES). **News = outward** (shared record); **blog = inward** (ideas, ideals, philosophy, tutorials, thinking in public). Short defaults — first-party news omits org; action essays pass implied [On] and drop surplus *the*; prefer `X as Y` / *when* / disproof / questions over rigid `X is Y`; attach floating modifiers to an object; Antora topics = concept names. Philosophy: `Titles as orientation` (HCI Nerdz + ryanjohnson.dev). Cursor rules = `.cursor/rules/*.mdc` dir; this file stays the paste preamble.
 - Project facts for agents: `AGENTS.md` + README/docs. Do not commit per-repo `MEMORIES.md`.
-- On demand (do not inline): team skills in `dev-centr/agent-rules/skills/` — `antora-org-site`, `public-readme`, `ship-app`, `draft-pr`, `writing-news`, `writing-blog`, and `skills/CATALOG.md`. Personal-only: `talk-normal`.
+- On demand (do not inline): team skills in `dev-centr/agent-rules/skills/` — `antora-org-site`, `public-readme`, `ship-app`, `draft-pr`, `writing-news`, `writing-blog`, and `skills/CATALOG.md`. Personal-only: `talk-normal`, `writing-news-vs-blog` (see `skills/CATALOG.md`).
 
 ## AI ops
 - AsciiDoc: checklists `* [ ]`; blank line after **bold** headings; list continuations `+`; images `image::`.
@@ -59,3 +63,4 @@
 - Stale APIs: Context7 MCP (https://context7.com/); else skill `outdated-code-protocol`.
 - Commits / push / PRs: skills `git-commit`, `push-code`, and `draft-pr`. At end of any run that changed files, load `push-code` (standing auth). Load `draft-pr` when opening a PR.
 - Cursor skills: junction `dev-centr/agent-rules/skills/<name>` into `~/.cursor/skills/<name>/`. On drift: skill `sync-agent-rules`. Personal packs: `skills/CATALOG.md` in this fork. Do **not** paste skill bodies here. Skill `write-a-skill`: description field = trigger words, not a lay blurb.
+- writing-news-vs-blog (news/blog body copy only): Cursor skill — canonical `skills/writing-news-vs-blog/`; do **not** paste full directives into always-on User Rules; titles stance stays under Docs above.
