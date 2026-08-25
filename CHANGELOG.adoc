@@ -37,6 +37,11 @@ This fork still ships **`RULES.md`** (not yet renamed to `user.md`). Prefer hive
 | Portable constants (resolve `%code%`); machine overlay → `%USERPROFILE%\.cursor\rules\machine.mdc`
 |====
 
+== 2026-08-25 — Sync skills and rules on drift
+
+* Point agents at skill `sync-agent-rules` for cross-machine skill/rule drift.
+* See link:changelog-details/2026-08-25%20-%20sync-agent-rules-on-drift.adoc[Detailed changelog].
+
 == 2026-08-24 — Changelog introduced
 
 * Added repo-root `CHANGELOG.adoc` + `changelog-details/`; README links.

@@ -1,0 +1,4 @@
+= 2026-08-25 — Sync skills and rules on drift
+
+* `RULES.md`: always-on obligation to run skill `sync-agent-rules` when local skills/rules drift from `dev-centr/agent-rules`; stamp lives in hive `harness.md`.
+* Also aligned end-of-run commit/push + `push-code` pointers with upstream standing auth.
