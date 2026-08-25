@@ -37,6 +37,10 @@ This fork still ships **`RULES.md`** (not yet renamed to `user.md`). Prefer hive
 | Portable constants (resolve `%code%`); machine overlay → `%USERPROFILE%\.cursor\rules\machine.mdc`
 |====
 
+== 2026-08-25 — skills-set human labels
+
+* Align `RULES.md` stamp line with upstream `AGENT_RULES_SYNCED_LABEL` / `skills-set/*` tags.
+
 == 2026-08-25 — Sync skills and rules on drift
 
 * Point agents at skill `sync-agent-rules` for cross-machine skill/rule drift.

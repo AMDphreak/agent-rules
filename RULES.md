@@ -14,7 +14,7 @@
 - Gitignore: allow-list (`*` then `!path`); update when adding files. Do **not** allow-list `MEMORIES.md` (keep it ignored).
 - **Sync with remote before multi-file work:** in each affected git repo, `git fetch` and check `git status -sb` for `behind`. If the branch tracks a remote and is behind, pull/rebase (or merge) **before** coding. Do not invent a large change set against a stale local HEAD.
 - **End of agent run:** if the run changed files, compose logical commits and push before the final reply (skill `push-code`; detail `general/end-of-run.md`). Skip only if the user said not to commit/push.
-- **Sync skills/rules on drift:** when discovery install, always-on paste, or `$AGENT_RULES_PATH` SHA drifts from the shared reference (`dev-centr/agent-rules`), run skill `sync-agent-rules` and apply updates (stamp `AGENT_RULES_SYNCED_SHA` in `$CODE_ROOT/harness.md`).
+- **Sync skills/rules on drift:** when discovery install, always-on paste, or `$AGENT_RULES_PATH` SHA drifts from the shared reference (`dev-centr/agent-rules`), run skill `sync-agent-rules` and apply updates (stamp `AGENT_RULES_SYNCED_SHA` + `AGENT_RULES_SYNCED_LABEL` / `skills-set/*` in `$CODE_ROOT/harness.md`).
 - Python: always `venv`; prefer `uv` over `pip`; install `uv` in scripts if missing.
 - Build failures: fix project code over downgrading deps; missing icon → stop loop, placeholder or ask.
 - Task lists in files: mark done with checkmark emojis.
