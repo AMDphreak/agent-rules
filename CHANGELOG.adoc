@@ -4,6 +4,11 @@ Personal fork of link:https://github.com/dev-centr/agent-rules[`dev-centr/agent-
 Backfilled from observed file content across commits (not only subjects).
 Detail pages under `changelog-details/`.
 
+== 2026-08-28 — docs illustrations default
+
+* Portable rule: teaching pages need an orientation figure by default (`general/documentation.md`; `RULES.md` Docs one-liner).
+* See link:changelog-details/2026-08-28%20-%20docs-illustrations.adoc[Detailed changelog].
+
 == 2026-08-28 — bitwarden-unlock local session reuse
 
 * Agent entry `ensure_bw_unlocked.ps1`; local `BW_SESSION` restore/persist (User env + DPAPI).

@@ -2,6 +2,12 @@
 
 Read this file when you **author, structure, or publish** project documentation for repositories the user owns. Skip it for pure code tasks with no doc impact.
 
+## Illustrations and figures (default)
+
+When you **add or substantially update** visitor-facing docs (explanations, how-tos, curated lists, architecture, onboarding), ship **at least one orientation visual** unless the page is pure tabular reference or a thin changelog stub.
+
+Prefer: local Mermaid/PlantUML/SVG under `modules/.../images/`, then screenshots/mockups, then source stills (e.g. YouTube thumbnails saved locally for Antora). Quote AsciiDoc alts that contain commas. Wall-of-text concept pages without a figure are incomplete. Shared detail also in `dev-centr/agent-rules` `general/documentation.md` when that clone is the sync source.
+
 ## Structure
 
 - **Diátaxis** (tutorials, how-to, explanation, reference).

@@ -1,0 +1,5 @@
+= 2026-08-28 — docs illustrations default
+
+* `general/documentation.md`: **Illustrations and figures** — new/updated visitor-facing teaching pages need at least one orientation visual (diagram, screenshot, mockup, or source still) unless pure tabular reference or a thin changelog stub.
+* `RULES.md` Docs one-liner points at that section.
+* Always-on local overlay: `%USERPROFILE%\.cursor\rules\docs-illustrations.mdc` (machine-local; not in this repo).
