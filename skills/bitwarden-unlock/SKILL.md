@@ -21,6 +21,15 @@ if (-not (Get-Command bw -ErrorAction SilentlyContinue)) {
 bw status
 ```
 
+If the vault is **locked** and the terminal is non-interactive, use the GUI unlock script (OpenShellOrg-style WinForms + `Get-Credential` fallback):
+
+```powershell
+. "$env:USERPROFILE\unlock_bitwarden_gui.ps1"   # optional: -PersistUserEnv
+bw status
+```
+
+Optional User-level session (~30 min TTL): `-PersistUserEnv` or `persist_bw_session.ps1`. See [scripts/README.adoc](scripts/README.adoc).
+
 Then `bw list`, `bw get`, `bw sync` as needed. Capture **status JSON only** (`status`, `userEmail`). Redirect/suppress anything that would print the token (`bw unlock --raw`, `echo $env:BW_SESSION`, `Get-Content` on the profile script).
 
 Report: locked/unlocked and user email if present. Never passwords, TOTP, item secrets, or session strings.

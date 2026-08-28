@@ -1,0 +1,62 @@
+= Bitwarden unlock scripts
+
+Tokenless PowerShell helpers for local agents. Never commit live `BW_SESSION` values.
+
+== Quick use (agent shell)
+
+[source,powershell]
+----
+# Process-scoped session (preferred for one-off agent runs)
+. "$env:USERPROFILE\unlock_bitwarden.ps1"
+bw status
+
+# GUI master-password prompt when vault is locked (non-interactive terminal)
+. "$env:USERPROFILE\unlock_bitwarden_gui.ps1"
+bw status
+----
+
+== GUI unlock (OpenShellOrg + fallbacks)
+
+`unlock_bitwarden_gui.ps1` uses:
+
+1. `Show-PasswordDialog.ps1` — masked WinForms dialog (OpenShellOrg-style; lives in this folder)
+2. OpenShellOrg `terminal-gui-prompts` `Show-InputDialog.ps1` path probe (for future 2FA text prompts)
+3. `Get-Credential` — native Windows secure prompt
+4. `Read-Host -AsSecureString` — last resort
+
+Install to profile:
+
+[source,powershell]
+----
+Copy-Item "$env:USERPROFILE\.cursor\skills\bitwarden-unlock\scripts\Show-PasswordDialog.ps1" $env:USERPROFILE
+Copy-Item "$env:USERPROFILE\.cursor\skills\bitwarden-unlock\scripts\unlock_bitwarden_gui.ps1" $env:USERPROFILE
+Copy-Item "$env:USERPROFILE\.cursor\skills\bitwarden-unlock\scripts\persist_bw_session.ps1" $env:USERPROFILE
+----
+
+== Persist session (~30 min)
+
+Optional User-level `BW_SESSION` for new shells. Sessions expire; re-unlock when `bw status` is `locked`.
+
+[source,powershell]
+----
+. "$env:USERPROFILE\unlock_bitwarden_gui.ps1" -PersistUserEnv
+# or after manual unlock:
+. "$env:USERPROFILE\persist_bw_session.ps1"
+----
+
+New shells can hydrate process env without re-prompting:
+
+[source,powershell]
+----
+$env:BW_SESSION = [Environment]::GetEnvironmentVariable('BW_SESSION','User')
+bw status
+----
+
+== Bitwarden login paths (not unlock)
+
+`bw login` supports interactive email/password, `--apikey`, and `--sso`. Unlock only needs the master password. OAuth/browser login is not a separate `bw` subcommand today — use `bw login` in your own terminal once per machine, then agents call unlock/GUI unlock.
+
+== AI safety
+
+* Never `Read` `$env:USERPROFILE\unlock_bitwarden.ps1` if it may contain a hardcoded session.
+* Never print `BW_SESSION`, item secrets, or `.env.local` values in chat.

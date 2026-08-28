@@ -15,6 +15,7 @@
 - **Sync with remote before multi-file work:** in each affected git repo, `git fetch` and check `git status -sb` for `behind`. If the branch tracks a remote and is behind, pull/rebase (or merge) **before** coding. Do not invent a large change set against a stale local HEAD.
 - **End of agent run:** if the run changed files, compose logical commits and push before the final reply (skill `push-code`; detail `general/end-of-run.md`). Skip only if the user said not to commit/push.
 - **Sync skills/rules on drift:** when discovery install, always-on paste, or `$AGENT_RULES_PATH` SHA drifts from the shared reference (`dev-centr/agent-rules`), run skill `sync-agent-rules` and apply updates (stamp `AGENT_RULES_SYNCED_SHA` + `AGENT_RULES_SYNCED_LABEL` / `skills-set/*` in `$CODE_ROOT/harness.md`).
+- **Hive remotes (prefer hive-watch):** do not `git fetch` the whole hive at chat start. Read **Last checked** in `$CODE_ROOT/machine.md` (hive-watch block) and `$CODE_ROOT/hive-watch.status.json`. If checked within **24h**, trust the status file; pull only repos you will edit that show behind. If stale, run [**hive-watch**](https://github.com/dev-centr/hive-watch) once (skill `hive-watch`). Detail: `general/hive-watch.md` in the agent-rules clone.
 - Python: always `venv`; prefer `uv` over `pip`; install `uv` in scripts if missing.
 - Build failures: fix project code over downgrading deps; missing icon → stop loop, placeholder or ask.
 - Task lists in files: mark done with checkmark emojis.
