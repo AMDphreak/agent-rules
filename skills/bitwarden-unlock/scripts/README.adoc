@@ -19,10 +19,10 @@ Restores a saved decrypt session before prompting. Persists after unlock to User
 [source,powershell]
 ----
 $src = "$env:USERPROFILE\.cursor\skills\bitwarden-unlock\scripts"
-Copy-Item "$src\ensure_bw_unlocked.ps1", "$src\bw_session_store.ps1", `
+  Copy-Item "$src\ensure_bw_unlocked.ps1", "$src\bw_session_store.ps1", `
   "$src\persist_bw_session.ps1", "$src\unlock_bitwarden_gui.ps1", `
   "$src\Show-PasswordDialog.ps1", "$src\unlock_bitwarden.ps1", `
-  "$src\bw_login.ps1" `
+  "$src\bw_login.ps1", "$src\bw_desktop_session.ps1" `
   $env:USERPROFILE -Force
 Copy-Item "$src\Show-PasswordDialog.ps1" $env:USERPROFILE
 ----
@@ -73,6 +73,19 @@ Copy-Item "$env:USERPROFILE\.cursor\skills\bitwarden-unlock\scripts\bw_login.ps1
   "$env:USERPROFILE\bw_login.ps1"
 # Edit bw-apikey.local.ps1 locally — never commit or paste secrets into chat
 ----
+
+== Desktop vs CLI unlock (limitation)
+
+Unlocking the Bitwarden *Desktop* app does **not** unlock the CLI (`bw`). They maintain separate session state. There is no official `--use-desktop-session` flag today.
+
+`bw_desktop_session.ps1` detects when Desktop is running and the browser-integration IPC endpoint exists (named pipe on Windows). It **cannot** adopt the Desktop session — that requires Bitwarden's encrypted IPC protocol (same path as browser extension / community `bwbio`).
+
+When CLI is locked but Desktop appears unlocked, `ensure_bw_unlocked.ps1` prints a warning with a link to the GitHub feature request before prompting for master password.
+
+Workarounds until first-party support:
+
+* `unlock_bitwarden_gui.ps1` + local `BW_SESSION` persist (this skill)
+* https://github.com/jeanregisser/bitwarden-cli-bio[ bwbio] — biometric unlock via Desktop IPC (wrapper, not session reuse)
 
 == AI safety
 

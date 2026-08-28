@@ -43,7 +43,8 @@ Install once (profile copies):
 $src = "$env:USERPROFILE\.cursor\skills\bitwarden-unlock\scripts"
 Copy-Item "$src\ensure_bw_unlocked.ps1", "$src\bw_session_store.ps1", `
   "$src\persist_bw_session.ps1", "$src\unlock_bitwarden_gui.ps1", `
-  "$src\Show-PasswordDialog.ps1", "$src\unlock_bitwarden.ps1" `
+  "$src\Show-PasswordDialog.ps1", "$src\unlock_bitwarden.ps1", `
+  "$src\bw_login.ps1", "$src\bw_desktop_session.ps1" `
   $env:USERPROFILE -Force
 ```
 

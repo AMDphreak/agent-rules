@@ -82,6 +82,20 @@ if (Test-BwVaultUnlocked) {
     return
 }
 
+# Desktop unlock does not propagate to CLI — hint before prompting (detection only).
+$desktopHintScript = Join-Path (Get-ScriptRoot) 'bw_desktop_session.ps1'
+if (-not (Test-Path -LiteralPath $desktopHintScript)) {
+    $desktopHintScript = Join-Path $env:USERPROFILE 'bw_desktop_session.ps1'
+}
+if (-not (Test-Path -LiteralPath $desktopHintScript)) {
+    $skillHint = Join-Path $env:USERPROFILE '.cursor/skills/bitwarden-unlock/scripts/bw_desktop_session.ps1'
+    if (Test-Path -LiteralPath $skillHint) { $desktopHintScript = $skillHint }
+}
+if (Test-Path -LiteralPath $desktopHintScript) {
+    . $desktopHintScript
+    Write-BwDesktopSessionHintIfRelevant -Warning | Out-Null
+}
+
 $guiUnlock = Join-Path $env:USERPROFILE 'unlock_bitwarden_gui.ps1'
 if (Test-Path -LiteralPath $guiUnlock) {
     . $guiUnlock -PersistUserEnv
