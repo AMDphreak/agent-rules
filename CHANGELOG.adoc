@@ -4,6 +4,11 @@ Personal fork of link:https://github.com/dev-centr/agent-rules[`dev-centr/agent-
 Backfilled from observed file content across commits (not only subjects).
 Detail pages under `changelog-details/`.
 
+== 2026-08-28 — bitwarden-unlock API key login
+
+* Personal API key login path for `bw login --apikey`; templates in `skills/bitwarden-unlock/scripts/`.
+* See link:changelog-details/2026-08-28%20-%20bitwarden-apikey-login.adoc[Detailed changelog].
+
 Shared / org schema history (including `RULES.md` → `user.md`) lives upstream:
 
 * https://docs.devcentr.org/agent-rules/changelog.html

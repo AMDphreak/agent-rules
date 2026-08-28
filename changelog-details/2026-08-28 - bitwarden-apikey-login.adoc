@@ -1,0 +1,5 @@
+﻿= 2026-08-28 — bitwarden-unlock API key login
+
+* Extend skill `bitwarden-unlock` with personal API key login (`BW_CLIENTID`, `BW_CLIENTSECRET`).
+* Add tokenless templates: `bw-apikey.local.ps1.example`, `bw_login.ps1`; update SKILL, README, catalog.
+* Live credentials stay in `$env:USERPROFILE\bw-apikey.local.ps1` (machine-local; never commit).
