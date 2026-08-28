@@ -11,7 +11,7 @@
   AI agents: dot-source, then use bw without printing BW_SESSION.
 
 .PARAMETER PersistUserEnv
-  Also write BW_SESSION to the User-level environment variable (~30 min TTL).
+  Also persist BW_SESSION locally (User env + DPAPI file) for reuse across shells.
 
 .EXAMPLE
   . "$env:USERPROFILE\unlock_bitwarden_gui.ps1"
@@ -89,12 +89,24 @@ function Set-BwSessionFromRaw {
 
 function Invoke-PersistBwSession {
     param([string] $Session)
-    $persist = Join-Path $PSScriptRoot 'persist_bw_session.ps1'
-    if (-not (Test-Path -LiteralPath $persist)) {
-        [Environment]::SetEnvironmentVariable('BW_SESSION', $Session, 'User')
+    $storeBeside = Join-Path $PSScriptRoot 'bw_session_store.ps1'
+    $storeProfile = Join-Path $env:USERPROFILE 'bw_session_store.ps1'
+    if (Test-Path -LiteralPath $storeBeside) {
+        . $storeBeside
+        Save-BwSessionLocal -Session $Session
         return
     }
-    $Session | & $persist
+    if (Test-Path -LiteralPath $storeProfile) {
+        . $storeProfile
+        Save-BwSessionLocal -Session $Session
+        return
+    }
+    $persist = Join-Path $PSScriptRoot 'persist_bw_session.ps1'
+    if (Test-Path -LiteralPath $persist) {
+        $Session | & $persist
+        return
+    }
+    [Environment]::SetEnvironmentVariable('BW_SESSION', $Session, 'User')
 }
 
 Ensure-BwOnPath
@@ -107,12 +119,29 @@ try {
 }
 
 if ($status.status -eq 'unlocked') {
-    if ([string]::IsNullOrWhiteSpace($env:BW_SESSION)) {
+    $storeBeside = Join-Path $PSScriptRoot 'bw_session_store.ps1'
+    $storeProfile = Join-Path $env:USERPROFILE 'bw_session_store.ps1'
+    if (Test-Path -LiteralPath $storeBeside) { . $storeBeside }
+    elseif (Test-Path -LiteralPath $storeProfile) { . $storeProfile }
+    else {
         $stored = [Environment]::GetEnvironmentVariable('BW_SESSION', 'User')
         if (-not [string]::IsNullOrWhiteSpace($stored)) {
             Set-BwSessionFromRaw -Raw $stored
         }
     }
+
+    if (Get-Command Restore-BwSessionLocal -ErrorAction SilentlyContinue) {
+        if ([string]::IsNullOrWhiteSpace($env:BW_SESSION)) {
+            [void] (Restore-BwSessionLocal)
+        }
+    }
+    elseif ([string]::IsNullOrWhiteSpace($env:BW_SESSION)) {
+        $stored = [Environment]::GetEnvironmentVariable('BW_SESSION', 'User')
+        if (-not [string]::IsNullOrWhiteSpace($stored)) {
+            Set-BwSessionFromRaw -Raw $stored
+        }
+    }
+
     if ($PersistUserEnv -and -not [string]::IsNullOrWhiteSpace($env:BW_SESSION)) {
         Invoke-PersistBwSession -Session $env:BW_SESSION
     }

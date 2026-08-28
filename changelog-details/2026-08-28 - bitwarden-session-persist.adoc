@@ -1,0 +1,5 @@
+﻿= 2026-08-28 — bitwarden-unlock local session reuse
+
+* Add ensure_bw_unlocked.ps1 agent entry; bw_session_store.ps1 (User env + DPAPI).
+* Restore saved BW_SESSION before unlock prompt; persist after every unlock.
+* Update SKILL, README, catalog; harness + machine overlays document enabled persist.

@@ -2,18 +2,46 @@
 
 Tokenless PowerShell helpers for local agents. Never commit live `BW_SESSION` values.
 
-== Quick use (agent shell)
+== Agent entry (session-aware machines)
+
+When `BITWARDEN_SESSION_PERSIST = enabled` in harness (this desktop):
 
 [source,powershell]
 ----
-# Process-scoped session (preferred for one-off agent runs)
-. "$env:USERPROFILE\unlock_bitwarden.ps1"
-bw status
-
-# GUI master-password prompt when vault is locked (non-interactive terminal)
-. "$env:USERPROFILE\unlock_bitwarden_gui.ps1"
+. "$env:USERPROFILE\ensure_bw_unlocked.ps1"
 bw status
 ----
+
+Restores a saved decrypt session before prompting. Persists after unlock to User env + `%USERPROFILE%\.bw-session.dpapi`.
+
+== Install to profile
+
+[source,powershell]
+----
+$src = "$env:USERPROFILE\.cursor\skills\bitwarden-unlock\scripts"
+Copy-Item "$src\ensure_bw_unlocked.ps1", "$src\bw_session_store.ps1", `
+  "$src\persist_bw_session.ps1", "$src\unlock_bitwarden_gui.ps1", `
+  "$src\Show-PasswordDialog.ps1", "$src\unlock_bitwarden.ps1", `
+  "$src\bw_login.ps1" `
+  $env:USERPROFILE -Force
+Copy-Item "$src\Show-PasswordDialog.ps1" $env:USERPROFILE
+----
+
+== Persist session (reuse across shells)
+
+CLI session keys stay valid until `bw lock` / `bw logout` — no built-in timeout.
+
+[source,powershell]
+----
+. "$env:USERPROFILE\ensure_bw_unlocked.ps1"
+# or after manual unlock:
+. "$env:USERPROFILE\persist_bw_session.ps1"
+----
+
+Storage:
+
+* User-level `BW_SESSION` environment variable
+* DPAPI file `%USERPROFILE%\.bw-session.dpapi` (CurrentUser scope)
 
 == GUI unlock (OpenShellOrg + fallbacks)
 
@@ -23,34 +51,6 @@ bw status
 2. OpenShellOrg `terminal-gui-prompts` `Show-InputDialog.ps1` path probe (for future 2FA text prompts)
 3. `Get-Credential` — native Windows secure prompt
 4. `Read-Host -AsSecureString` — last resort
-
-Install to profile:
-
-[source,powershell]
-----
-Copy-Item "$env:USERPROFILE\.cursor\skills\bitwarden-unlock\scripts\Show-PasswordDialog.ps1" $env:USERPROFILE
-Copy-Item "$env:USERPROFILE\.cursor\skills\bitwarden-unlock\scripts\unlock_bitwarden_gui.ps1" $env:USERPROFILE
-Copy-Item "$env:USERPROFILE\.cursor\skills\bitwarden-unlock\scripts\persist_bw_session.ps1" $env:USERPROFILE
-----
-
-== Persist session (~30 min)
-
-Optional User-level `BW_SESSION` for new shells. Sessions expire; re-unlock when `bw status` is `locked`.
-
-[source,powershell]
-----
-. "$env:USERPROFILE\unlock_bitwarden_gui.ps1" -PersistUserEnv
-# or after manual unlock:
-. "$env:USERPROFILE\persist_bw_session.ps1"
-----
-
-New shells can hydrate process env without re-prompting:
-
-[source,powershell]
-----
-$env:BW_SESSION = [Environment]::GetEnvironmentVariable('BW_SESSION','User')
-bw status
-----
 
 == Bitwarden login paths (not unlock)
 
@@ -74,17 +74,9 @@ Copy-Item "$env:USERPROFILE\.cursor\skills\bitwarden-unlock\scripts\bw_login.ps1
 # Edit bw-apikey.local.ps1 locally — never commit or paste secrets into chat
 ----
 
-Agent flow (dot-source only; never Read the live key file):
-
-[source,powershell]
-----
-. "$env:USERPROFILE\bw_login.ps1"
-. "$env:USERPROFILE\unlock_bitwarden.ps1"   # or unlock_bitwarden_gui.ps1
-bw status
-----
-
 == AI safety
 
 * Never `Read` `$env:USERPROFILE\unlock_bitwarden.ps1` if it may contain a hardcoded session.
-* Never `Read` or print `$env:USERPROFILE\bw-apikey.local.ps1`, `BW_CLIENTSECRET`, or item secrets.
+* Never `Read` or print `$env:USERPROFILE\bw-apikey.local.ps1`, `BW_CLIENTSECRET`, `.bw-session.dpapi`, or item secrets.
 * Never print `BW_SESSION`, item secrets, or `.env.local` values in chat.
+* Always prefer `ensure_bw_unlocked.ps1` on machines with session persist enabled.

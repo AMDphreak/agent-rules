@@ -1,12 +1,12 @@
 #Requires -Version 7
 <#
 .SYNOPSIS
-  Persist BW_SESSION to the User environment for local agent reuse.
+  Persist BW_SESSION locally for reuse across agent shells.
 
 .DESCRIPTION
-  Bitwarden session keys expire after ~30 minutes of inactivity. Storing in the
-  User env var lets new shells pick up a recent unlock; re-run unlock when bw
-  reports locked. Never commit BW_SESSION or paste it into chat.
+  Saves to User-level BW_SESSION and a DPAPI-protected file at
+  $env:USERPROFILE\.bw-session.dpapi. Valid until bw lock / bw logout — no
+  built-in CLI timeout. Never commit session material or paste it into chat.
 
   Accepts session on stdin or uses $env:BW_SESSION when piped empty.
 
@@ -20,6 +20,14 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+$storeBeside = Join-Path $PSScriptRoot 'bw_session_store.ps1'
+$storeProfile = Join-Path $env:USERPROFILE 'bw_session_store.ps1'
+if (Test-Path -LiteralPath $storeBeside) { . $storeBeside }
+elseif (Test-Path -LiteralPath $storeProfile) { . $storeProfile }
+else {
+    throw 'Missing bw_session_store.ps1 beside persist_bw_session.ps1 or in profile.'
+}
+
 $session = $null
 if ($MyInvocation.ExpectingInput) {
     $session = (@($input) | ForEach-Object { $_ }) -join [Environment]::NewLine
@@ -32,8 +40,7 @@ if ([string]::IsNullOrWhiteSpace($session)) {
     throw 'No BW_SESSION to persist (unlock first).'
 }
 
-[Environment]::SetEnvironmentVariable('BW_SESSION', $session, 'User')
-$env:BW_SESSION = $session
+Save-BwSessionLocal -Session $session
 
 # Do not Write-Output the session.
 if ($MyInvocation.InvocationName -ne '.') {

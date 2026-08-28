@@ -1,92 +1,84 @@
 ---
 name: bitwarden-unlock
 description: >-
-  Use when bitwarden, bw, BW_SESSION, BW_CLIENTID, BW_CLIENTSECRET, bw login
-  --apikey, bw-apikey.local.ps1, bw_login.ps1, unlock_bitwarden.ps1, vault
-  unlock, piping session, Bitwarden CLI, bw unlock --raw, bw status, bw list,
-  or generating a Bitwarden unlock script for an agent.
+  Use when bitwarden, bw, BW_SESSION, ensure_bw_unlocked.ps1, bw_session_store,
+  session persist, BW_CLIENTID, BW_CLIENTSECRET, bw login --apikey,
+  bw-apikey.local.ps1, bw_login.ps1, unlock_bitwarden.ps1, vault unlock,
+  piping session, Bitwarden CLI, bw unlock --raw, bw status, bw list, or
+  generating a Bitwarden unlock script for an agent.
 ---
 
 # Bitwarden CLI unlock (no session in context)
 
-AI must **never read**, print, log, or copy `BW_SESSION` / session keys, `BW_CLIENTSECRET`, or live `%USERPROFILE%\bw-apikey.local.ps1`. Do **not** `Read` a live `%USERPROFILE%\unlock_bitwarden.ps1` — it may contain a hardcoded assignment. Invoke profile scripts by path only (dot-source).
+`BW_SESSION` is the vault **decrypt** key (from `bw unlock`). It stays valid until `bw lock` / `bw logout` — no built-in CLI timeout.
 
-## This machine (agents)
+AI must **never read**, print, log, or copy `BW_SESSION`, `BW_CLIENTSECRET`, live `%USERPROFILE%\bw-apikey.local.ps1`, or `%USERPROFILE%\.bw-session.dpapi`. Do **not** `Read` profile scripts that may hold secrets. Invoke by path only (dot-source).
 
-**Login (API key, non-interactive)** — personal `client_id` / `client_secret` from the web vault (Settings → Security → Keys). Live values live in `%USERPROFILE%\bw-apikey.local.ps1`; agents dot-source helpers only:
+## This machine (agents) — use `ensure_bw_unlocked.ps1`
 
-```powershell
-. "$env:USERPROFILE\bw_login.ps1"    # sets BW_CLIENTID/SECRET from local file if needed; bw login --apikey
-. "$env:USERPROFILE\unlock_bitwarden.ps1"
-```
-
-**Unlock only** (already logged in):
+**Always** dot-source the session-aware entry point before any vault command (`bw list`, `bw get`, …):
 
 ```powershell
-. "$env:USERPROFILE\unlock_bitwarden.ps1"
-if (-not (Get-Command bw -ErrorAction SilentlyContinue)) {
-  $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" +
-    [System.Environment]::GetEnvironmentVariable("Path","User")
-}
-bw status
+. "$env:USERPROFILE\ensure_bw_unlocked.ps1"
+bw status   # JSON only — status + userEmail
 ```
 
-If the vault is **locked** and the terminal is non-interactive, use the GUI unlock script (OpenShellOrg-style WinForms + `Get-Credential` fallback):
+What it does:
 
-```powershell
-. "$env:USERPROFILE\unlock_bitwarden_gui.ps1"   # optional: -PersistUserEnv
-bw status
-```
+1. `bw_login.ps1` when not logged in (API key from `bw-apikey.local.ps1`)
+2. **Restore** saved `BW_SESSION` (User env + DPAPI file `.bw-session.dpapi`)
+3. Unlock via GUI **only** when still locked; **persist** session after unlock
 
-Optional User-level session (~30 min TTL): `-PersistUserEnv` or `persist_bw_session.ps1`. See [scripts/README.adoc](scripts/README.adoc).
+Harness: `BITWARDEN_SESSION_PERSIST = enabled` in `$HARNESS`. Machine block in `$MACHINE` and always-on `bitwarden-unlock.mdc`.
 
-Then `bw list`, `bw get`, `bw sync` as needed. Capture **status JSON only** (`status`, `userEmail`). Redirect/suppress anything that would print the token (`bw unlock --raw`, `echo $env:BW_SESSION`, `Get-Content` on the profile script).
+Then `bw list`, `bw get`, `bw sync` as needed. Redirect/suppress anything that would print the token.
 
 Report: locked/unlocked and user email if present. Never passwords, TOTP, item secrets, or session strings.
 
-## Generate the script (other users / new machines)
+## Local session persistence (this workstation)
 
-Copy the tokenless template [scripts/unlock_bitwarden.ps1](scripts/unlock_bitwarden.ps1) to `$env:USERPROFILE\unlock_bitwarden.ps1`. Do **not** paste a session into the file from chat.
-
-Creating without the model seeing the token — **user runs this in their own terminal**:
+Install once (profile copies):
 
 ```powershell
-bw unlock --raw | ForEach-Object { $env:BW_SESSION = $_ }
+$src = "$env:USERPROFILE\.cursor\skills\bitwarden-unlock\scripts"
+Copy-Item "$src\ensure_bw_unlocked.ps1", "$src\bw_session_store.ps1", `
+  "$src\persist_bw_session.ps1", "$src\unlock_bitwarden_gui.ps1", `
+  "$src\Show-PasswordDialog.ps1", "$src\unlock_bitwarden.ps1" `
+  $env:USERPROFILE -Force
 ```
 
-Or pipe into the script (stdin sets the env var; script never `Write-Output`s it):
+After the **first** unlock in a session, later agent shells reuse the saved key until lock/logout.
 
-```powershell
-bw unlock --raw | . "$env:USERPROFILE\unlock_bitwarden.ps1"
-```
-
-The template:
-
-- If stdin has data, sets `BW_SESSION` from the pipeline
-- Else runs `bw unlock --raw` and assigns without echoing
-- Sets env for the **current process only**
-- Returns 0 on success when executed; when **dot-sourced**, must not `exit` (that kills the caller)
-
-Do not commit the live profile script if it might contain a session. The template in this skill is OK to git.
+Clear locally: `Clear-BwSessionLocal` (from dot-sourced `bw_session_store.ps1`) or `bw lock`.
 
 ## Personal API key (login, not unlock)
 
-Bitwarden CLI reads `BW_CLIENTID` and `BW_CLIENTSECRET` for `bw login --apikey`. The API key authenticates the CLI session; **unlock still needs the master password** (or an existing `BW_SESSION`).
+Bitwarden CLI reads `BW_CLIENTID` and `BW_CLIENTSECRET` for `bw login --apikey`. Live values: `%USERPROFILE%\bw-apikey.local.ps1`. Template: [scripts/bw-apikey.local.ps1.example](scripts/bw-apikey.local.ps1.example).
 
-**User setup (once per machine)** — copy [scripts/bw-apikey.local.ps1.example](scripts/bw-apikey.local.ps1.example) to `$env:USERPROFILE\bw-apikey.local.ps1` and paste values from the web vault. Never commit the live file or paste secrets into chat/rules.
+## Lower-level scripts
 
-Optional: install [scripts/bw_login.ps1](scripts/bw_login.ps1) to `$env:USERPROFILE\bw_login.ps1` for the dot-source login helper.
+| Script | Role |
+| --- | --- |
+| `ensure_bw_unlocked.ps1` | **Agent entry** — login + restore + unlock + persist |
+| `bw_session_store.ps1` | Save/restore/clear local session (User env + DPAPI) |
+| `bw_login.ps1` | API-key login |
+| `unlock_bitwarden_gui.ps1` | GUI master-password unlock; `-PersistUserEnv` |
+| `unlock_bitwarden.ps1` | Pipe/`bw unlock --raw`; restores before prompt |
+| `persist_bw_session.ps1` | Persist current `$env:BW_SESSION` |
+
+## Generate scripts (other users / new machines)
+
+Copy tokenless templates from [scripts/](scripts/) to `$env:USERPROFILE\`. Do **not** paste session keys into chat or git.
+
+User creates session without the model seeing the token — **user runs in their own terminal**:
 
 ```powershell
-Copy-Item "$env:USERPROFILE\.cursor\skills\bitwarden-unlock\scripts\bw-apikey.local.ps1.example" `
-  "$env:USERPROFILE\bw-apikey.local.ps1"
-Copy-Item "$env:USERPROFILE\.cursor\skills\bitwarden-unlock\scripts\bw_login.ps1" `
-  "$env:USERPROFILE\bw_login.ps1"
-# Edit bw-apikey.local.ps1 in your editor — not via the agent
+bw unlock --raw | ForEach-Object { $env:BW_SESSION = $_ }
+. "$env:USERPROFILE\persist_bw_session.ps1"
 ```
 
-Agents: dot-source `bw_login.ps1` then unlock helpers. Never `Get-Content` / `Read` on `bw-apikey.local.ps1`. Capture `bw status` JSON only after login/unlock.
+Optional org pattern (not default): upstream `general/bitwarden-session-persist-optional.md`.
 
 ## Windows
 
-PowerShell 7. If `bw` is missing, refresh PATH from Machine+User as above, then retry. `bw` is Bitwarden CLI, not the other `bw` tools.
+PowerShell 7. If `bw` is missing, refresh PATH from Machine+User, then retry. `bw` is Bitwarden CLI, not the other `bw` tools.
