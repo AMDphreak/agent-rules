@@ -61,3 +61,5 @@
 - Stale APIs: Context7 MCP (https://context7.com/); else skill `outdated-code-protocol`.
 - Commits / push / PRs: skills `git-commit`, `push-code`, and `draft-pr`. At end of any run that changed files, load `push-code` (standing auth). Load `draft-pr` when opening a PR.
 - Cursor skills: junction `dev-centr/agent-rules/skills/<name>` into `~/.cursor/skills/<name>/`. On drift: skill `sync-agent-rules`. Personal packs: `skills/CATALOG.md` in this fork. Do **not** paste skill bodies here. Skill `write-a-skill`: description field = trigger words, not a lay blurb.
+- **Screenshots:** published screenshots must be captured with scrollbars hidden and no scrollbar gutter. Detail: `general/screenshots.md`.
+- **Antora registry-ready:** follow `general/registry-ready.md`. Monorepo packages each need their own `antoraRegistry` block.
