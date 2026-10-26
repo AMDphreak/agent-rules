@@ -4,7 +4,7 @@ A package is registry-ready when the registry can read everything it shows from 
 
 - Repository topics name its kind (for example `antora-theme`, `antora-ui-bundle`, `antora-extension`).
 - `package.json` carries an `antoraRegistry` block with `antora` (supported major versions) and flat `requires` / `worksWith` / `conflictsWith` / `provides` / `uses` keys (no nested `relations` object). Add `colorSchemes` for themes.
-- `antoraRegistry.title` gives the human display title (for example `"Light/Dark Mode"`). Without it the registry falls back to `displayName`, then the README's first heading, then a humanized package name. Titles need not be unique; the registry adds the owner when two collide.
+- `antoraRegistry.title` gives the human display title (for example `"Light/Dark Mode"`). Without it the registry falls back to `displayName`, then the README's first heading, then a humanized package name. Pick a unique `antoraRegistry.title`; check the registry first. Titles are unique ignoring case and punctuation: the first entry indexed holds it, later ones are listed with the owner appended and a "title already in use" notice.
 - **Monorepo packages each need their own `antoraRegistry` block** in their own `packages/<name>/package.json`. Tag releases per package as `<package>-v<semver>` (for example `color-scheme-v0.5.3`) so the registry maps each tag to its package.
 - Every package is listed in the repo's `registry-index.json`, with its `layer`.
 - Forks declare their upstream (forge `forked_from`) and a description that says what the fork adds.
