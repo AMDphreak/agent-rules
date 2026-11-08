@@ -34,6 +34,16 @@ When spawning Task subagents, pass an explicit `model` when it differs from the 
 
 **Subagent types (Cursor):** `explore` for codebase search; `generalPurpose` for mixed research; `bugbot` / `security-review` only when the user asks; `environment: cloud` only when the user wants a cloud worker on a repo branch.
 
+## Coordinator workspace (inbox chats)
+
+Standing coordinator chats (JobTangent, Dev-Centr inbox, Master) are **themed inboxes**, not the product repo root.
+
+- **Do not** call `move_agent_to_root` into `$CODE_ROOT/.../career-journey` (or another product clone) just because the conversation is about that product.
+- **`move_agent_to_root` back to home / empty-window often fails** — Cursor expects a real project folder, not an arbitrary non-repo path.
+- **Repo edits:** spawn a **cloud worker** (`Task`, `environment: cloud`) on the target repo, or ask the user to use a **repo-scoped** chat. The coordinator commits/reviews via PR links; it does not re-root itself.
+
+Deeplinks with `workspace=career-journey` only for chats intentionally opened on that repo—not for cross-org briefings.
+
 ## Subagent chaining (recursive)
 
 Every layer — parent chat, Task workers, and children they spawn — should:
