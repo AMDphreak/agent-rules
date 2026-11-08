@@ -1,0 +1,13 @@
+= Cursor Composer agent routing (personal)
+
+Recorded portable policy for this machine's Cursor harness when Composer 2.5 Fast acts as coordinator.
+
+== Added
+
+* `general/cursor-composer-agent-routing.md` — model slugs, recursive Task subagent chaining, parallel-git pointer.
+* `.cursor/rules/cursor-composer-agent-routing.mdc` — always-on local overlay (not User Rules).
+* `RULES.md` one-liner under AI ops; `profiles/desktop.overlay.md` install note.
+
+== Scope
+
+Cursor + Composer profile on the desktop harness only; not upstream `dev-centr/agent-rules`.

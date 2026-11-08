@@ -63,3 +63,4 @@
 - Cursor skills: junction `dev-centr/agent-rules/skills/<name>` into `~/.cursor/skills/<name>/`. On drift: skill `sync-agent-rules`. Personal packs: `skills/CATALOG.md` in this fork. Do **not** paste skill bodies here. Skill `write-a-skill`: description field = trigger words, not a lay blurb.
 - **Screenshots:** published screenshots must be captured with scrollbars hidden and no scrollbar gutter. Detail: `general/screenshots.md`.
 - **Antora registry-ready:** follow `general/registry-ready.md`. Monorepo packages each need their own `antoraRegistry` block.
+- **Cursor Composer profile (this harness only):** coordinator defaults to Composer 2.5 Fast; recursive Task subagent model routing — detail `general/cursor-composer-agent-routing.md`; always-on `.mdc` in `%USERPROFILE%\.cursor\rules\` (not User Rules). Not applicable to other harnesses.

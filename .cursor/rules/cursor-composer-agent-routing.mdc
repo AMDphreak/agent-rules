@@ -1,0 +1,26 @@
+---
+description: Cursor Composer profile — model routing and recursive Task subagent chaining (not other harnesses)
+alwaysApply: true
+---
+
+# Cursor Composer agent routing
+
+**Scope:** This machine's Cursor harness with Composer as coordinator. Full detail: `general/cursor-composer-agent-routing.md` under your personal `agent-rules` fork — not for non-Cursor agents.
+
+Do not run everything on Grok 4.6/4.7; that burns quota and hurts diff discipline.
+
+## Composer 2.5 Fast (`composer-2.5-fast`)
+
+Default for implementation, refactors, scaffolding, and **coordinator** chats (org inboxes, JobTangent, etc.).
+
+## Grok 4.6 (`cursor-grok-4.6-high`)
+
+Plans, architecture sanity checks, review — when Composer needs a reasoning pass without 4.7 cost.
+
+## Grok 4.7 (`grok-4.7-high`)
+
+Hard debugging, provider/policy research, large handoff summaries — not routine file writes.
+
+## Subagent chaining (recursive)
+
+Every agent layer should: (1) size the job, (2) execute locally when narrow, (3) delegate when deep or sprawling, (4) **pass this same rule** to children. Pick Task `model` per sections above; use `explore` for search. Cloud workers only when the user asks.

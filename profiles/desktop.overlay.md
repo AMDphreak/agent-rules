@@ -5,3 +5,4 @@ Copy this file plus `profiles/desktop.md` constants into `%USERPROFILE%\.cursor\
 - Prefer `Z:\code` paths on this host.
 - Personal agent-rules clone under `$CODE_ROOT/github.com/AMDphreak/.forks/agent-rules` (or owned path); junctions/hardlinks are a temporary path hack only.
 - Compose/watch via [dev-centr/rules-manager](https://github.com/dev-centr/rules-manager) (`rulesd` + tray).
+- **Cursor Composer routing:** keep `$AGENT_RULES_PATH/.cursor/rules/cursor-composer-agent-routing.mdc` copied or junctioned into `%USERPROFILE%\.cursor\rules\` (`alwaysApply`). Detail: `general/cursor-composer-agent-routing.md`. Supersedes a loose `cursor-model-routing.mdc` if both exist — keep one file.
